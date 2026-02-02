@@ -9,6 +9,8 @@ class MatriculaController extends BaseController
 {
     public function index()
     {
-        //
+        $title = "MATRICULACION DE CURSO ";
+        
+        return view('matricula.php'); 
     }
 }

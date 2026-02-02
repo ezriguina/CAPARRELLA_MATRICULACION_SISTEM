@@ -9,6 +9,13 @@ class LoginController extends BaseController
 {
     public function index()
     {
-        //
+     
+    }
+    public function log (){
+
+         $title = "LOG PARA MATRICULARTE";
+     $data = [$title];   
+
+     return view('login/login_public',$data);
     }
 }
