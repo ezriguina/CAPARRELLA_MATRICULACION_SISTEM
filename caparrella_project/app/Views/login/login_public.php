@@ -76,26 +76,28 @@
             y el código de acceso proporcionado por el instituto.
           </p>
         </div>
-
+        
         <div class="col-md-7 p-5">
           <h4 class="mb-4">Acceso para matricularse</h4>
 
+          <form action="<?base_url('public/login')?>" >
           <div class="mb-3">
             <label for="email" class="form-label">Correo electronico</label>
-            <input type="email" class="form-control" id="email" placeholder="nombre@correo.com">
+            <input type="email" class="form-control" id="email" name="email" placeholder="nombre@correo.com">
           </div>
 
           <div class="mb-4">
             <label for="code" class="form-label">Codigo de acceso</label>
-            <input type="text" class="form-control" id="code" placeholder="Ingrese su código">
+            <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese su código"><br>
+            <button class="btn btn-secondary btn-lg">Recibir codigo pass</button><br>
           </div>
 
           <div class="d-grid">
-            <button class="btn btn-primary btn-lg">
+            <button class="btn btn-primary btn-lg" >
               Acceder al sistema
             </button>
           </div>
-
+          </form>
           <div class="footer-text mt-4">
             © 2026 · Instituto Educativo · Todos los derechos reservados
           </div>
