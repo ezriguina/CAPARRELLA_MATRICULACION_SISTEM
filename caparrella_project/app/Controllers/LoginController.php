@@ -29,7 +29,7 @@ class LoginController extends BaseController
      $email ->setFrom('ezriguina@inscaparrella.cat','institut caparrella');
      $email ->setTo($correo);
      $email ->setSubject('Processo de matriculacion instuto caparrella tandada 1');
-     $email->setMessage('tu codigo de acceso para matricularse es : '.$code_pass) ;
+     $email->setMessage('tu codigo de acceso para matricularse es : '.$codegenerated) ;
      if(!$correo){
 
         echo" sin correo no se puede enviar el code pass ";

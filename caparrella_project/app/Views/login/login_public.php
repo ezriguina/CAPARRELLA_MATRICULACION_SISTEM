@@ -89,7 +89,7 @@
           <div class="mb-4">
             <label for="code" class="form-label">Codigo de acceso</label>
             <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese su código"><br>
-            <button class="btn btn-secondary btn-lg">Recibir codigo pass</button><br>
+            <a class="btn btn-secondary btn-lg" href="<?base_url('public/login')?>">Recibir codigo pass</a><br>
           </div>
 
           <div class="d-grid">
