@@ -11,6 +11,6 @@ class MatriculaController extends BaseController
     {
         $title = "MATRICULACION DE CURSO ";
         
-        return view('matricula.php'); 
+        return view('/matricula.php'); 
     }
 }

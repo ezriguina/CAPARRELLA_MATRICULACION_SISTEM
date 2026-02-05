@@ -80,7 +80,9 @@
         <div class="col-md-7 p-5">
           <h4 class="mb-4">Acceso para matricularse</h4>
 
-          <form action="<?base_url('public/login')?>" >
+          <form action="<?php base_url('/public/login')?>" method="post" >
+          <?= csrf_field(); ?>
+         
           <div class="mb-3">
             <label for="email" class="form-label">Correo electronico</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="nombre@correo.com">
@@ -89,7 +91,7 @@
           <div class="mb-4">
             <label for="code" class="form-label">Codigo de acceso</label>
             <input type="text" class="form-control" id="code" name="code" placeholder="Ingrese su código"><br>
-            <a class="btn btn-secondary btn-lg" href="<?base_url('public/login')?>">Recibir codigo pass</a><br>
+            <a class="btn btn-secondary btn-lg" href="<?php base_url('/public/login') ?>">Recibir codigo pass</a><br>
           </div>
 
           <div class="d-grid">
