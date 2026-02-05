@@ -40,21 +40,21 @@ class LoginController extends BaseController
      ];
 
      $email = \Config\services::email();
-     $correo = $this ->request->getPost('email');
-     $code_pass=$this->request->getPost('code_pass');
      $codegenerated =random_int(15, 18);
 
   
      $email ->setFrom('ezriguina@inscaparrella.cat','institut caparrella');
-     $email ->setTo($correo);
+     $email ->setTo('jimyydesanta@gmail.com'); 
      $email ->setSubject('Processo de matriculacion instuto caparrella tandada 1');
      $email->setMessage('tu codigo de acceso para matricularse es : '.$codegenerated) ;
     
 
-     if(!$this->validate($validation_rules,$missatges)){
-     return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+     if(!$this->validate($validation_rules)){
+     return redirect()->back()->with('error','error al internar acceder a la pagina de matriculacion .');
      
      }else {
+     $correo = $this ->request->getPost('email');
+     $code_pass=$this->request->getPost('code_pass');
       return view('matricula.php');
      }
      
