@@ -13,4 +13,16 @@ class MatriculaController extends BaseController
         
         return view('/matricula.php'); 
     }
+    public function m_alumne_view(){
+
+    }
+    public function m_alumne_post(){
+
+    }
+    public function m_pagament_view(){
+
+    }
+    public function m_pagament_post(){
+        
+    }
 }
