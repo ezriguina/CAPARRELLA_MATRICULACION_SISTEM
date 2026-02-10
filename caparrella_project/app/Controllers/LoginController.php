@@ -23,7 +23,7 @@ class LoginController extends BaseController
 
     public function log_post(){
      helper('form');  
-      $correo = $this ->request->getPost('email');
+     $correo = $this ->request->getPost('email');
      $code_pass=$this->request->getPost('code_pass');
 
       $validation_rules = [
@@ -52,12 +52,12 @@ class LoginController extends BaseController
     
 
      if(!$this->validate($validation_rules,$missatges)){
+      
      return redirect()->back()->withInput()->with('error',$this->validator);
      
-     }
-
-    
+     }else{
       return view('login/login_code');
+     }
      
     
   /*  if($email->send()){
@@ -72,9 +72,12 @@ class LoginController extends BaseController
 }
  public function login_code(){
     
-
- 
- return view('matricula'); 
+  return view('login/login_code'); 
      
+ }
+ public function login_code_post(){
+   helper('form');
+   
+   return view('matricula');
  }
 }

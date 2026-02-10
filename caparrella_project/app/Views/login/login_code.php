@@ -79,9 +79,9 @@
         <div class="col-md-7 p-5">
           <h4 class="mb-4">ACCES MATRICULA </h4>
 
-          <form action="<?php base_url('public/login')?>" method="post" >
+          <form action="<?php base_url('public/login_code')?>" method="post" >
           <?= csrf_field(); ?>
-
+          
           <?=  validation_list_errors() ?> 
           
           <div class="mb-3">
@@ -92,7 +92,7 @@
           <div class="mb-4">
             <label for="code" class="form-label">Code pass </label>
             <input type="password" class="form-control" id="code_pass" name="code_pass" placeholder="Ingrese su código"><br>
-            <a class="btn btn-secondary btn-lg" href="<?php base_url('public/login') ?>">Recibir codigo pass</a><br>
+            <a class="btn btn-secondary btn-lg" href="<?php base_url('public/login_code') ?>">Recibir codigo pass</a><br>
           </div>
 
           <div class="d-grid">
