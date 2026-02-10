@@ -72,8 +72,8 @@
           <img src="/img/logo.jpg" alt="Logo" class="mb-4">
           <h4 class="fw-semibold">Proceso de Matrícula</h4>
           <p class="mt-3">
-            Acceda al sistema de matrícula introduciendo su correo electrónico
-            y el código de acceso proporcionado por el instituto.
+            Acceda al sistema de matrícula introduciendo su correo electronico
+            y el codigo de acceso proporcionado por el instituto.
           </p>
         </div>
         

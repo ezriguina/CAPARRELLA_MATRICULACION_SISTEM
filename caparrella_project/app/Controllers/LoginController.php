@@ -51,12 +51,14 @@ class LoginController extends BaseController
      $email->setMessage('tu codigo de acceso para matricularse es : '.$codegenerated) ;
     
 
-     if(!$this->validate($validation_rules,$missatges)){
+     if($this->validate($validation_rules,$missatges)){
       
-     return redirect()->back()->withInput()->with('error',$this->validator);
+      return view('login/login_code');
+      
      
      }else{
-      return view('login/login_code');
+         return redirect()->back()->withInput()->with('error',$this->validator);
+
      }
      
     
@@ -78,6 +80,6 @@ class LoginController extends BaseController
  public function login_code_post(){
    helper('form');
    
-   return view('matricula');
+   return view('matricula/matricula');
  }
 }

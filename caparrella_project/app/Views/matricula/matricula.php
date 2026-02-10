@@ -70,17 +70,15 @@
 
         <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-4 text-center">
           <img src="/img/logo.jpg" alt="Logo" class="mb-4">
-          <h4 class="fw-semibold">Matricula </h4>
+          <h4 class="fw-semibold">Matricula Riquisitos </h4>
           <p class="mt-3">
-            Acceda al sistema de matrícula introduciendo su correo electrónico
-            y el código de acceso proporcionado por el instituto.
           </p>
         </div>
-        
+
         <div class="col-md-7 p-5">
           <h4 class="mb-4">Acceso para matricularse</h4>
 
-          <form action="<?php base_url('/public/login')?>" method="post" >
+          <form action="<?php  base_url('matricula')?>" method="post" >
           <?= csrf_field(); ?>
           
           <div class="mb-3">

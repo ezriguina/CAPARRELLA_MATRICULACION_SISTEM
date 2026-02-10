@@ -13,6 +13,28 @@ class MatriculaController extends BaseController
         
         return view('/matricula.php'); 
     }
+    public function index_post(){
+     helper('form');
+     $check1 = $this->request->getPost('check1');
+     $check2 =$this->request->getPost('check2');
+     $check3 = $this->request->getPost('check3');
+     $check4 = $this->request->getPost('check4');
+
+     $validation_rules = [
+        'check1'=> 'required',
+        'check2'=> 'required',
+        'check3'=> 'required',
+        'check4'=> 'required'
+     ];
+     if($this->validate($validation_rules)){
+        
+        return view('matricula/matricula1');
+     }else{
+
+        redirect()->to('matricula')->withInput()->with('error de validacion ',$validation_rules);
+
+     }
+    }
     public function m_alumne_view(){
 
     }
