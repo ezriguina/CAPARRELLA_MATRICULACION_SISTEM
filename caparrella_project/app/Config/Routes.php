@@ -8,8 +8,13 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/', 'Home::index');
 //matrciula 
+/*
 $routes->get('matricula','MatriculaController::index');// bug acces 
 $routes->post('matricula','MatriculaController::index_post');
+*/
+$routes->get('matricula','MatriculaController::matricula_view');// bug acces 
+$routes->post('matricula','MatriculaController::matricula_post');
+
 $routes->get('matricula/datos_alumne','MatriculaController::m_alumne_view');
 $routes->post('matricula/datos_alumne','MatriculaController::m_alumne_post');
 $routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');

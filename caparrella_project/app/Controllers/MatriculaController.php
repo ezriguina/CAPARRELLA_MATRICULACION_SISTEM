@@ -11,9 +11,12 @@ class MatriculaController extends BaseController
     {
         $title = "MATRICULACION DE CURSO ";
         
-        return view('matricula'); 
+        }
+    public function matricula_view(){
+         return view('matricula/matricula'); 
+
     }
-    public function index_post(){
+    public function matricula_post(){
      helper('form');
      $check1 = $this->request->getPost('check1');
      $check2 =$this->request->getPost('check2');
@@ -31,7 +34,7 @@ class MatriculaController extends BaseController
         return view('matricula/matricula1');
      }else{
 
-        redirect()->to('matricula')->withInput()->with('error de validacion ',$validation_rules);
+        redirect()->to('matricula/matricula')->withInput()->with('error de validacion ',$validation_rules);
 
      }
     }
