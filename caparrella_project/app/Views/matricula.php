@@ -84,23 +84,23 @@
           <?= csrf_field(); ?>
           
           <div class="mb-3">
-            <label for="email" class="form-label">TEXT 1 </label>
-            <input type="checkbox"  id="email" name="email" >
+            <label for="email" class="form-label">Tienes la foto del DNI 2 caras  </label>
+            <input type="checkbox"  id="check1" name="check1" >
           </div>
 
           <div class="mb-4">
-            <label for="code" class="form-label">TEXT 2 </label>
-            <input type="checkbox"  id="code" name="code" placeholder="Ingrese su código"><br>
+            <label for="code" class="form-label">tienes familia numerosa  </label>
+            <input type="checkbox"  id="check2" name="check2" placeholder="Ingrese"><br>
           </div>
 
           <div class="mb-4">
-            <label for="code" class="form-label">TEXT 3 </label>
-            <input type="checkbox"  id="code" name="code" placeholder="Ingrese su código"><br>
+            <label for="code" class="form-label">Tienes alguna discapacidad </label>
+            <input type="checkbox"  id="check3" name="check3" placeholder="Ingrese"><br>
           </div>
 
           <div class="mb-4">
-            <label for="code" class="form-label">TEXT 4 </label>
-            <input type="checkbox"  id="code" name="code" placeholder="Ingrese su código"><br>
+            <label for="code" class="form-label">Tienes ............ </label>
+            <input type="checkbox"  id="check4" name="check4" placeholder="Ingrese"><br>
           </div>
 
           <div class="d-grid">

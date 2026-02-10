@@ -14,4 +14,6 @@ $routes->get('/matricula/datos_pagament','MatriculaController::m_pagament_view')
 $routes->post('/matricula/datos_pagament','MatriculaController::m_pagament_post');
 $routes->get('public/login','LoginController::log');
 $routes->post('public/login','LoginController::log_post');
+$routes->get('public/login_code','LoginController::login_code');
+$routes->post('public/login_code','LoginController::login_code');
 

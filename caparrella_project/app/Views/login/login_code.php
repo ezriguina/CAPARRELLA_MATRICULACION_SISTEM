@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Acceso a matrícula</title>
+  <title>ACCES WITH PASS CODE </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link
@@ -72,17 +72,16 @@
           <img src="/img/logo.jpg" alt="Logo" class="mb-4">
           <h4 class="fw-semibold">Proceso de Matrícula</h4>
           <p class="mt-3">
-            Acceda al sistema de matrícula introduciendo su correo electrónico
-            y el código de acceso proporcionado por el instituto.
+            solo los alumnos que estan preinscritos puedan realizar el procceso de matricula .
           </p>
         </div>
         
         <div class="col-md-7 p-5">
-          <h4 class="mb-4">Acceso para matricularse</h4>
+          <h4 class="mb-4">ACCES MATRICULA </h4>
 
-          <form action="<?php base_url('public/login_code')?>" method="post" >
+          <form action="<?php base_url('public/login')?>" method="post" >
           <?= csrf_field(); ?>
-          
+
           <?=  validation_list_errors() ?> 
           
           <div class="mb-3">
@@ -91,8 +90,9 @@
           </div>
 
           <div class="mb-4">
-            <label for="code" class="form-label">DNI / NIE / PASSPORT</label>
-            <input type="text" class="form-control" id="code_pass" name="code_pass" placeholder="Ingrese su código"><br>
+            <label for="code" class="form-label">Code pass </label>
+            <input type="password" class="form-control" id="code_pass" name="code_pass" placeholder="Ingrese su código"><br>
+            <a class="btn btn-secondary btn-lg" href="<?php base_url('public/login') ?>">Recibir codigo pass</a><br>
           </div>
 
           <div class="d-grid">
