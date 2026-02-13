@@ -18,7 +18,7 @@ class LoginController extends BaseController
      $title = "LOG PARA MATRICULARTE";
      $data = [$title];   
 
-     return view('login/login_public',$data);
+     echo view('login/login_public',$data);
     }
 
     public function log_post(){
@@ -51,15 +51,12 @@ class LoginController extends BaseController
      $email->setMessage('tu codigo de acceso para matricularse es : '.$codegenerated) ;
     
 
-     if($this->validate($validation_rules,$missatges)){
-      
-      return view('login/login_code');
-      
-     
-     }else{
-         return redirect()->back()->withInput()->with('error',$this->validator);
-
+     if(!$this->validate($validation_rules,$missatges)){
+     return redirect()->back()->withInput()->with('error',$this->validator);
      }
+
+      return redirect()->to('public/login_code')->withInput('error',$validation_rules);
+
      
     
   /*  if($email->send()){
@@ -73,13 +70,24 @@ class LoginController extends BaseController
 
 }
  public function login_code(){
-    
-  return view('login/login_code'); 
+  helper('form');
+
+  echo view('login/login_code'); 
      
  }
+ 
  public function login_code_post(){
    helper('form');
-   
-   return view('matricula/matricula');
+   $correo = $this->request->getPost('email');
+   $code_pass=$this->request->getPost('code_pass');
+   $validation_rules=[
+   'email' => 'required',
+   'code_pass'=> 'required'
+   ];
+
+   if(!$this->validate($validation_rules)){
+      redirect()->to('public/login_code')->withInput()->with('error',$validation_rules);
+   }
+   return redirect()->to('matricula');
  }
 }

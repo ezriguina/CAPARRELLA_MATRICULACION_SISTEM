@@ -6,6 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>matrciula 2 </h1>
+    <h1> curso datos  </h1>
 </body>
 </html>

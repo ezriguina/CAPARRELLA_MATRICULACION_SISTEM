@@ -80,9 +80,9 @@
         <div class="col-md-7 p-5">
           <h4 class="mb-4">Acceso para matricularse</h4>
 
-          <form action="<?php base_url('public/login')?>" method="post" >
+          <form action="<?= base_url('public/login') ?>" method="post" >
           <?= csrf_field(); ?>
-          
+           
           <?=  validation_list_errors() ?> 
           
           <div class="mb-3">

@@ -79,7 +79,7 @@
         <div class="col-md-7 p-5">
           <h4 class="mb-4">ACCES MATRICULA </h4>
 
-          <form action="<?php base_url('public/login_code')?>" method="post" >
+          <form action="<?=  base_url('public/login_code') ?>" method="post"  >
           <?= csrf_field(); ?>
           
           <?=  validation_list_errors() ?> 

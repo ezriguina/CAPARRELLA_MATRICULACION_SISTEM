@@ -78,7 +78,7 @@
         <div class="col-md-7 p-5">
           <h4 class="mb-4">Acceso para matricularse</h4>
 
-          <form action="<?php  base_url('matricula')?>" method="post" >
+          <form action="<?=   base_url('matricula') ?>" method="post" >
           <?= csrf_field(); ?>
           
           <div class="mb-3">
