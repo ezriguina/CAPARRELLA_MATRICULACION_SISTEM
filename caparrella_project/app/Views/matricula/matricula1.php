@@ -29,25 +29,27 @@
 
             <form action="<?= base_url('matricula/datos_alumne') ?>" method="post">
             <?= csrf_field();?>
+            <?=  validation_list_errors() ?> 
+            
                 <div class="row g-3 mb-4">
                     <div class="col-md-8">
                         <label class="form-label fw-semibold">Cognoms i nom de l'alumne/a</label>
-                        <input type="text" class="form-control form-control-lg" name="nom_complet" >
+                        <input type="text" class="form-control form-control-lg" name="nom_complet" value="<?= old('nom_complet'); ?>" >
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold">DNI</label>
-                        <input type="text" class="form-control form-control-lg" name="dni" >
+                        <input type="text" class="form-control form-control-lg" name="dni" id="dni" value="<?= old('dni'); ?>" >
                     </div>
                 </div>
 
                 <div class="mb-4">
                     <label class="form-label fw-semibold d-block">Sistema sanitari</label>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="TSI" value="TSI">
+                        <input class="form-control form-control-lg" type="text" name="TSI" value="<?= old('TSI'); ?>">
                         <label class="form-check-label">TSI (Seguretat Social)</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="mutua" value="Mutua">
+                        <input class="form-check-input" type="radio" name="mutua" value="Mutua" value="<?= old('matua'); ?>">
                         <label class="form-check-label">Mutua</label>
                     </div>
                 </div>
@@ -55,44 +57,44 @@
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Poblacio de naixement</label>
-                        <input type="text" class="form-control form-control-lg" name="Poblacio">
+                        <input type="text" class="form-control form-control-lg" name="Poblacio" value="<?= old('Poblacio'); ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Data de naixement</label>
-                        <input type="date" class="form-control form-control-lg" name="data_nacimiento">
+                        <input type="date" class="form-control form-control-lg" name="data_nacimiento" value="<?= old('data_nacimiento'); ?>">
                     </div>
                 </div>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-8">
                         <label class="form-label fw-semibold">Domicili familiar</label>
-                        <input type="text" class="form-control form-control-lg" name="domicili">
+                        <input type="text" class="form-control form-control-lg" name="domicili" value="<?= old('domicili'); ?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold">Telefon familiar </label>
-                        <input type="tel" class="form-control form-control-lg" name="tlf_familiar">
+                        <input type="tel" class="form-control form-control-lg" name="tlf_familiar" value="<?= old('tlf_familiar'); ?>">
                     </div>
                 </div>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-8">
                         <label class="form-label fw-semibold">Municipi</label>
-                        <input type="text" class="form-control form-control-lg" name="municipi">
+                        <input type="text" class="form-control form-control-lg" name="municipi" value="<?= old('municipi'); ?>">
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold">Codi Postal</label>
-                        <input type="text" class="form-control form-control-lg" name="codi_postal">
+                        <input type="text" class="form-control form-control-lg" name="codi_postal" value="<?= old('codi_postal'); ?>">
                     </div>
                 </div>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Telefon alumne/a</label>
-                        <input type="tel" class="form-control form-control-lg" name="tlf_alumne">
+                        <input type="tel" class="form-control form-control-lg" name="tlf_alumne" value="<?= old('tlf_alumne'); ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Correu electronic alumne/a</label>
-                        <input type="email" class="form-control form-control-lg" name="email_alumne">
+                        <input type="email" class="form-control form-control-lg" name="email_alumne" value="<?= old('email_alumne'); ?>">
                     </div>
                 </div>
                 

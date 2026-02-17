@@ -30,6 +30,7 @@ class LoginController extends BaseController
       'email' => 'required|valid_email' ,
       'code_pass'=>'required|min_length[5]'
      ];
+     
      $missatges=[
       'email' => [
          'required' => 'el campo email es obligatorio' ,
@@ -72,7 +73,7 @@ class LoginController extends BaseController
  public function login_code(){
   helper('form');
 
-  echo view('login/login_code'); 
+  return view('login/login_code'); 
      
  }
  
@@ -86,7 +87,7 @@ class LoginController extends BaseController
    ];
 
    if(!$this->validate($validation_rules)){
-      redirect()->to('public/login_code')->withInput()->with('error',$validation_rules);
+      redirect()->back()->withInput()->with('error',$validation_rules);
    }
    return redirect()->to('matricula');
  }

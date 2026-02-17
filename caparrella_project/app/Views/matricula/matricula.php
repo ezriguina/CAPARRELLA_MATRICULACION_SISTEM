@@ -80,6 +80,8 @@
 
           <form action="<?=   base_url('matricula') ?>" method="post" >
           <?= csrf_field(); ?>
+
+          <?php validation_list_errors() ?> 
           
           <div class="mb-3">
             <label for="email" class="form-label">Tienes la foto del DNI 2 caras  </label>
@@ -88,7 +90,7 @@
 
           <div class="mb-4">
             <label for="code" class="form-label">tienes familia numerosa  </label>
-            <input type="checkbox"  id="check2" name="check2" placeholder="Ingrese"><br>
+            <input type="checkbox"   id="check2" name="check2" placeholder="Ingrese"><br>
           </div>
 
           <div class="mb-4">

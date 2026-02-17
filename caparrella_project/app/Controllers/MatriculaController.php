@@ -13,11 +13,14 @@ class MatriculaController extends BaseController
         
         }
     public function matricula_view(){
+        helper('form');
+
          return view('matricula/matricula'); 
 
     }
     public function matricula_post(){
-       helper('form');
+    helper('form');
+
      $check1 = $this->request->getPost('check1');
      $check2 =$this->request->getPost('check2');
      $check3 = $this->request->getPost('check3');
@@ -29,9 +32,24 @@ class MatriculaController extends BaseController
         'check3'=> 'required',
         'check4'=> 'required'
      ];
-     if(!$this->validate($validation_rules)){
-          redirect()->back()->withInput()->with('error de validacion ',$validation_rules);
-
+     $messatges = [
+        'check1'=> [
+         'required' => 'este campo es obligatorio '
+        ],
+        'check2'=> [
+         'required' => 'este campo es obligatorio '
+        ],
+        'check3'=> [
+         'required' => 'este campo es obligatorio '
+        ],
+        'check4'=> [
+         'required' => 'este campo es obligatorio '
+        ],
+     ];
+     
+     if(!$this->validate($validation_rules,$messatges)){
+          redirect()->back()->withInput('error',$this->validator);
+ 
      }
     
 
@@ -40,13 +58,14 @@ class MatriculaController extends BaseController
     }
 
     public function m_alumne_view(){
-    
+    helper('form') ;
+
     return view('matricula/matricula1');
 
     }
     public function m_alumne_post(){
       helper('form');
-
+      
      $nom_cognom = $this->request->getPost('nom_complet');
      $dni =$this->request->getPost('dni');
      $sanitat = $this->request->getPost('TSI');
@@ -107,16 +126,18 @@ class MatriculaController extends BaseController
 ];
 
 if (!$this->validate($validation_rules)) {
-    return redirect()->to('matricula/datos_alumne')->withInput()->with('errors', $this->validator->getErrors());
+    return redirect()->to('matricula/datos_alumne')->withInput()->with('errors', $this->validator);
 }
 
-return  redirect()->to('matricula/datos_pagament');
+return  view('matricula/matricula2.php');
 
     }
-    public function m_pagament_view(){
+    public function m_curs_view(){
+        helper('form');
     return view('matricula/matricula2');
     }
-    public function m_pagament_post(){
-        
+    public function m_curs_post(){
+                helper('form');
+             
     }
 }
