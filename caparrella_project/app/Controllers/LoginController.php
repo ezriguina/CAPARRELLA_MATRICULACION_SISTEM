@@ -21,54 +21,36 @@ class LoginController extends BaseController
      echo view('login/login_public',$data);
     }
 
-    public function log_post(){
-     helper('form');  
-     $correo = $this ->request->getPost('email');
-     $code_pass=$this->request->getPost('code_pass');
+public function log_post(){
 
-      $validation_rules = [
-      'email' => 'required|valid_email' ,
-      'code_pass'=>'required|min_length[5]'
-     ];
-     
-     $missatges=[
-      'email' => [
-         'required' => 'el campo email es obligatorio' ,
-         'valid_email' =>'debes ingresar un correo valid que tenga formato : exemple@domain.com'
-      ],
-      'code_pass' => [
-         'required' => 'el campo code pass es obligatorio ' ,
-         'min_length[5]' => 'como minimo 5 characteres en el code pass .'
-      ]
-     ];
+helper('form');
 
-     $email = \Config\services::email();
-     $codegenerated =random_int(15, 18);
+$validation = [
+'email' => 'required|valid_email',
+'code_pass' => 'required|min_length[5]'
+];
 
-  
-     $email ->setFrom('ezriguina@inscaparrella.cat','institut caparrella');
-     $email ->setTo('jimyydesanta@gmail.com'); 
-     $email ->setSubject('Processo de matriculacion instuto caparrella tandada 1');
-     $email->setMessage('tu codigo de acceso para matricularse es : '.$codegenerated) ;
-    
+if(!$this->validate($validation)){
+    return redirect()->back()->withInput()->with('errors',$this->validator);
+}
 
-     if(!$this->validate($validation_rules,$missatges)){
-     return redirect()->back()->withInput()->with('error',$this->validator);
-     }
+$email_user = $this->request->getPost('email');
 
-      return redirect()->to('public/login_code')->withInput('error',$validation_rules);
+$code = random_int(100000,999999);
 
-     
-    
-  /*  if($email->send()){
-       redirect()->to('matricula.php');
-    }else{
-       echo" no se ha enviado el correo correctamente";
-    }
-    return view('matricula.php');
+session()->set('login_code',$code);
+session()->set('login_email',$email_user);
 
-    }*/
+$email = \Config\Services::email();
 
+$email->setFrom('instituto@test.com','Instituto');
+$email->setTo($email_user);
+$email->setSubject('Codigo matricula');
+$email->setMessage('Tu codigo es: '.$code);
+
+$email->send();
+
+return redirect()->to('/public/login_code');
 }
  public function login_code(){
   helper('form');

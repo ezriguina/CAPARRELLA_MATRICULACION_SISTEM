@@ -31,7 +31,47 @@ class AlumneMigration extends Migration
             'correo_alumne' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 150,
+            ],'tsi' => [
+                'type' => 'VARCHAR',
+                'constraint' => 20,
+                'null' => true,
             ],
+
+            'poblacio' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
+
+            'data_naixement' => [
+                'type' => 'DATE',
+            ],
+
+            'domicili' => [
+                'type' => 'VARCHAR',
+                'constraint' => 150,
+            ],
+
+            'tlf_familiar' => [
+                'type' => 'VARCHAR',
+                'constraint' => 15,
+            ],
+
+            'municipi' => [
+                'type' => 'VARCHAR',
+                'constraint' => 100,
+            ],
+
+            'codi_postal' => [
+                'type' => 'VARCHAR',
+                'constraint' => 5,
+            ],
+
+            'tlf_alumne' => [
+                'type' => 'VARCHAR',
+                'constraint' => 15,
+                'null' => true,
+            ],
+
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
