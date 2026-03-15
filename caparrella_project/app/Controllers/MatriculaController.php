@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AlumneModel;
 use App\Models\CursModel;
+use App\Models\MatriculaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class MatriculaController extends BaseController
@@ -163,5 +164,17 @@ $Cursmodel->insert($data);
 
 return redirect()->to('matricula/pago');
 
+}
+public function pago_view( )
+{
+    $matriculaModel = new MatriculaModel();
+
+    
+    $data = [
+        'matricula' => 'matricula 1122',
+        'id_matricula' => 2
+    ];
+
+    return view('matricula/matricula_pago', $data);
 }
 }
