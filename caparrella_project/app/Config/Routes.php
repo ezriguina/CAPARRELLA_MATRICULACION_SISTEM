@@ -35,6 +35,9 @@ $routes->group('matricula', function($routes){
 
     $routes->get('datos_curs','MatriculaController::m_curs_view');
     $routes->post('datos_curs','MatriculaController::m_curs_post');
+
     $routes->get('pago','MatriculaController::pago_view');
-    $routes->post('pago/(:num)','MatriculaController::pago_post/$1');
+    $routes->post('pago','MatriculaController::pago_post');
+
+    $routes->get('pago/pdf','MatriculaController::generar_pdf');
 });

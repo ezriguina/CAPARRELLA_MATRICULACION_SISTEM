@@ -80,9 +80,21 @@
 </style>
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark white">
     <div class="container">
-        <span class="navbar-brand mb-0 h1">Proces de Matricula</span>
+
+        <a class="navbar-brand d-flex align-items-center" href="#">
+
+            <img 
+                src="<?= base_url('img/logo-removebg-preview.png') ?>" 
+                alt="Logo Instituto"
+                height="40"
+                class="me-2">
+
+            Proceso de Matrícula
+
+        </a>
+
     </div>
 </nav>
 

@@ -1,121 +1,199 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Matricula </title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Requisitos de Matrícula</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    body {
-      background-color: #f4f6f9;
-      font-family: "Segoe UI", Arial, sans-serif;
-    }
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    .main-card {
-      max-width: 900px;
-      border-radius: 12px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
-    }
+<style>
 
-     .left-panel {
-      background: linear-gradient(135deg, #0a4fbf, #16c172);
-      color: white;
-      border-radius: 12px 0 0 12px;
-     }
+body{
+background:linear-gradient(135deg,#0a4fbf,#16c172);
+min-height:100vh;
+font-family:"Segoe UI",Arial,sans-serif;
+display:flex;
+flex-direction:column;
+}
 
-    .left-panel img {
-      max-width: 180px;
-    }
+.navbar{
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
 
-    .form-control {
-      padding: 12px;
-    }
+.main-card{
+max-width:950px;
+border-radius:16px;
+overflow:hidden;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
 
-    .btn-primary {
-      font-weight: 600;
-      padding: 12px;
-    }
+.left-panel{
+background:linear-gradient(135deg,#0a4fbf,#1f75ff);
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:40px;
+text-align:center;
+}
 
-    .footer-text {
-      font-size: 12px;
-      color: #9aa4b2;
-    }
-  </style>
+.left-panel img{
+max-width:150px;
+margin-bottom:20px;
+}
+
+.left-panel h4{
+font-weight:600;
+}
+
+.form-panel{
+background:white;
+padding:50px;
+}
+
+.form-check{
+margin-bottom:15px;
+}
+
+.btn-primary{
+padding:12px;
+font-weight:600;
+border-radius:8px;
+}
+
+.footer-text{
+font-size:12px;
+color:#9aa4b2;
+}
+
+</style>
+
 </head>
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand fw-semibold" href="https://www.iescaparrella.cat/" target="_blank">
-        Instituto Educativo
-      </a>
-      
-      <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="https://www.iescaparrella.cat/ca/educacio/iescaparrella/preinscripcions-i-matriculacions/171280.html" target="_blank">AYUDA ? </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+<!-- NAVBAR -->
 
-  <div class="container d-flex align-items-center justify-content-center" style="min-height: calc(100vh - 56px);">
-    <div class="card main-card w-100">
-      <div class="row g-0">
+<nav class="navbar">
+<div class="container">
 
-        <div class="col-md-5 left-panel d-flex flex-column justify-content-center align-items-center p-4 text-center">
-          <img src="/img/logo.jpg" alt="Logo" class="mb-4">
-          <h4 class="fw-semibold">Matricula Riquisitos </h4>
-          <p class="mt-3">
-          </p>
-        </div>
+<a class="navbar-brand d-flex align-items-center" href="#">
 
-        <div class="col-md-7 p-5">
-          <h4 class="mb-4">Acceso para matricularse</h4>
+<img
+src="<?= base_url('img/logo-removebg-preview.png') ?>"
+alt="Logo Instituto"
+height="40"
+class="me-2">
 
-          <form action="<?=   base_url('matricula') ?>" method="post" >
-          <?= csrf_field(); ?>
+<strong>Proceso de Matrícula</strong>
 
-          <?php validation_list_errors() ?> 
-          
-          <div class="mb-3">
-            <label for="email" class="form-label">Tienes la foto del DNI 2 caras  </label>
-            <input type="checkbox"  id="check1" name="check1" >
-          </div>
+</a>
 
-          <div class="mb-4">
-            <label for="code" class="form-label">tienes familia numerosa  </label>
-            <input type="checkbox"   id="check2" name="check2" placeholder="Ingrese"><br>
-          </div>
+</div>
+</nav>
 
-          <div class="mb-4">
-            <label for="code" class="form-label">Tienes alguna discapacidad </label>
-            <input type="checkbox"  id="check3" name="check3" placeholder="Ingrese"><br>
-          </div>
+<!-- CONTENIDO -->
 
-          <div class="mb-4">
-            <label for="code" class="form-label">Tienes ............ </label>
-            <input type="checkbox"  id="check4" name="check4" placeholder="Ingrese"><br>
-          </div>
+<div class="container d-flex justify-content-center align-items-center flex-grow-1">
 
-          <div class="d-grid">
-            <button class="btn btn-primary btn-lg" >Empezar Matriculacion  </button>
-          </div>
-          </form>
-          <div class="footer-text mt-4">
-            © 2026 · Instituto Educativo · Todos los derechos reservados
-          </div>
-        </div>
+<div class="card main-card w-100">
 
-      </div>
-    </div>
-  </div>
+<div class="row g-0">
 
+<!-- PANEL IZQUIERDO -->
+
+<div class="col-md-5 left-panel">
+
+<img src="<?= base_url('img/logo-removebg-preview.png') ?>" alt="logo">
+
+<h4>Requisitos de matrícula</h4>
+
+<p class="mt-3">
+Antes de iniciar el proceso de matrícula asegúrese
+de disponer de la documentación necesaria.
+</p>
+
+</div>
+
+<!-- PANEL DERECHO -->
+
+<div class="col-md-7 form-panel">
+
+<h4 class="mb-4">Comprobación de documentación</h4>
+
+<form action="<?= base_url('matricula') ?>" method="post">
+
+<?= csrf_field(); ?>
+
+<?= validation_list_errors() ?>
+
+<div class="form-check">
+
+<input class="form-check-input" type="checkbox" id="check1" name="check1">
+
+<label class="form-check-label" for="check1">
+Tengo la fotografía del DNI (anverso y reverso)
+</label>
+
+</div>
+
+<div class="form-check">
+
+<input class="form-check-input" type="checkbox" id="check2" name="check2">
+
+<label class="form-check-label" for="check2">
+Dispongo de documentación de familia numerosa
+</label>
+
+</div>
+
+<div class="form-check">
+
+<input class="form-check-input" type="checkbox" id="check3" name="check3">
+
+<label class="form-check-label" for="check3">
+Tengo certificado de discapacidad (si aplica)
+</label>
+
+</div>
+
+<div class="form-check mb-4">
+
+<input class="form-check-input" type="checkbox" id="check4" name="check4">
+
+<label class="form-check-label" for="check4">
+Dispongo de la documentación académica requerida
+</label>
+
+</div>
+
+<div class="d-grid">
+
+<button class="btn btn-primary btn-lg">
+Empezar matriculación
+</button>
+
+</div>
+
+</form>
+
+<div class="footer-text mt-4">
+© 2026 · Instituto Educativo · Todos los derechos reservados
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </body>
+
 </html>

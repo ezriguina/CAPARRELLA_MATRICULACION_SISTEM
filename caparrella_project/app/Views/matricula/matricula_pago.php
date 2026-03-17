@@ -56,17 +56,31 @@
             background:#16c172;
         }
 
+        .qr-img{
+            width:180px;
+        }
+
     </style>
 
 </head>
 
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-primary">
+<nav class="navbar navbar-dark white">
     <div class="container">
-        <span class="navbar-brand">
+
+        <a class="navbar-brand d-flex align-items-center" href="#">
+
+            <img 
+                src="<?= base_url('img/logo-removebg-preview.png') ?>" 
+                alt="Logo Instituto"
+                height="40"
+                class="me-2">
+
             Proceso de Matrícula
-        </span>
+
+        </a>
+
     </div>
 </nav>
 
@@ -114,28 +128,28 @@
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Alumno</span>
-                            <strong>Juan Pérez</strong>
+                            <strong><?= esc($alumne['Nom_alumne']) ?></strong>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Email</span>
-                            <strong>juan@email.com</strong>
+                            <strong><?= esc($alumne['correo_alumne']) ?></strong>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Curso</span>
-                            <strong>Programación Web</strong>
+                            <strong><?= esc($curs['Nom_curs']) ?></strong>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Código curso</span>
-                            <strong>WEB101</strong>
+                            <strong><?= esc($curs['codigo_curs']) ?></strong>
                         </li>
 
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total a pagar</span>
                             <strong class="text-success fs-5">
-                                250 €
+                                <?= esc($curs['precio']) ?> €
                             </strong>
                         </li>
 
@@ -146,117 +160,140 @@
             </div>
 
 
-            <form action="#" method="post">
+            <div class="card mb-4 border-0 bg-light">
 
-                <h5 class="mb-3">
-                    Datos de pago
-                </h5>
+                <div class="card-body">
+
+                    <h5 class="mb-3">
+                        Datos para realizar el pago
+                    </h5>
+
+                    <ul class="list-group">
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Código entidad</span>
+                            <strong>0415876</strong>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Concepto</span>
+                            <strong>INGRESSOS ALUMNES</strong>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Alumno</span>
+                            <strong><?= esc($alumne['Nom_alumne']) ?></strong>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Curso</span>
+                            <strong><?= esc($curs['Nom_curs']) ?></strong>
+                        </li>
+
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Importe</span>
+                            <strong class="text-success">
+                                <?= esc($curs['precio']) ?> €
+                            </strong>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
 
 
-                <div class="row g-3 mb-3">
-
-                    <div class="col-md-6">
-
-                        <label class="form-label">
-                            Titular de la tarjeta
-                        </label>
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="titular"
-                            required
-                        >
-
-                    </div>
+            <div class="row mb-4">
 
 
-                    <div class="col-md-6">
+                <div class="col-md-6">
 
-                        <label class="form-label">
-                            Número de tarjeta
-                        </label>
+                    <div class="card h-100">
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="tarjeta"
-                            placeholder="1234 5678 9012 3456"
-                            required
-                        >
+                        <div class="card-body">
+
+                            <h6 class="text-primary">
+                                Clients de CaixaBank
+                            </h6>
+
+                            <ol>
+                                <li>Comptes i targetes</li>
+                                <li>Transferències</li>
+                                <li>Altres opcions</li>
+                                <li>Pagar rebut</li>
+                                <li>A una entitat (Pagament a tercers)</li>
+                                <li>Introduir codi: <strong>0415876</strong></li>
+                                <li>Continuar</li>
+                                <li>Imprimir justificant</li>
+                            </ol>
+
+                        </div>
 
                     </div>
 
                 </div>
 
 
-                <div class="row g-3 mb-4">
+                <div class="col-md-6">
 
-                    <div class="col-md-4">
+                    <div class="card h-100">
 
-                        <label class="form-label">
-                            Caducidad
-                        </label>
+                        <div class="card-body text-center">
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="caducidad"
-                            placeholder="MM/YY"
-                            required
-                        >
+                            <h6 class="text-primary">
+                                NO clients de CaixaBank
+                            </h6>
 
-                    </div>
+                            <ol class="text-start">
+                                <li>
+                                    Entrar a 
+                                    <a href="http://ja.cat/2526" target="_blank">
+                                        ja.cat/2526
+                                    </a>
+                                </li>
+                                <li>Introduir codi entitat: <strong>0415876</strong></li>
+                                <li>Indicar import, nom alumne i curs</li>
+                                <li>Imprimir justificant</li>
+                            </ol>
 
+                            <h6 class="mt-3">
+                                Pagar con QR
+                            </h6>
 
-                    <div class="col-md-4">
+                            <img
+                                class="qr-img"
+                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://ja.cat/2526"
+                                alt="QR Pago">
 
-                        <label class="form-label">
-                            CVV
-                        </label>
+                            <p class="text-muted mt-2">
+                                Escanea el código para acceder al pago
+                            </p>
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="cvv"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="col-md-4">
-
-                        <label class="form-label">
-                            DNI titular
-                        </label>
-
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="dni_pago"
-                            required
-                        >
+                        </div>
 
                     </div>
 
                 </div>
 
-
-                <div class="d-grid">
-
-                    <button class="btn btn-success btn-lg">
-                        Confirmar pago
-                    </button>
-
-                </div>
-
-            </form>
+            </div>
 
         </div>
 
     </div>
+      <form action="<?= base_url('matricula/pago')?>" method="post">
 
+<?= csrf_field() ?>
+
+<div class="d-grid mt-4">
+
+<button class="btn btn-success btn-lg">
+Confirmar La Matricula 
+</button>
+
+</div>
+
+</form>
 </div>
 
 </body>

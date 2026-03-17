@@ -7,6 +7,8 @@ use App\Models\AlumneModel;
 use App\Models\CursModel;
 use App\Models\MatriculaModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class MatriculaController extends BaseController
 {
@@ -67,9 +69,10 @@ class MatriculaController extends BaseController
 
     }
     public function m_alumne_post(){
+        $SESSION=session();
       helper('form');
       $AlumneModel = new AlumneModel();
-
+      
      $nom_cognom = $this->request->getPost('nom_complet');
      $dni =$this->request->getPost('dni');
      $sanitat = $this->request->getPost('TSI');
@@ -81,6 +84,9 @@ class MatriculaController extends BaseController
      $codi_Postal = $this->request->getPost('codi_postal');
      $tlf_alumne = $this->request->getPost('tlf_alumne');
      $correo = $this->request->getPost('email_alumne');
+
+    
+    
 
     $validation_rules = [
 
@@ -121,6 +127,11 @@ $data = [
 ];
 $AlumneModel->insert($data);
 
+ $alumne = $AlumneModel->where('Dni_alumne',$dni)->first() ;
+    $sessionData = [
+        'id_alumne' => $alumne['id_alumne'],
+    ];
+    $SESSION->set($sessionData);
 return redirect()->to('matricula/datos_curs');
 
 }
@@ -130,7 +141,7 @@ return redirect()->to('matricula/datos_curs');
     }
 
 public function m_curs_post(){
-
+$session = session();
 helper('form');
 
 $validation = [
@@ -159,22 +170,104 @@ $data = [
 'precio' => $this->request->getPost('precio')
 
 ];
-
 $Cursmodel->insert($data);
+
+
+$curs = $Cursmodel->where('nom_curs',$data['Nom_curs'])->first();
+$sessionData=[
+'id_curs' => $curs['id_curs']
+];
+$session ->set($sessionData); 
 
 return redirect()->to('matricula/pago');
 
 }
-public function pago_view( )
-{
-    $matriculaModel = new MatriculaModel();
 
+public function pago_view()
+{
+    $session=session(); 
+
+    $matriculaModel = new MatriculaModel();
+    $AlumneModel =  new AlumneModel();
+    $Cursmodel =new CursModel();
     
+    if (!$session->has('id_alumne') || !$session->has('id_curs')) {
+    return redirect()->to('matricula/datos_curs')->with('error',' te falta datos del alumne o curs ')->withInput();
+    }
+
+    $id_Alumne = session()->get('id_alumne');
+    $id_Curs = session()->get('id_curs');
+    
+    $alumne=$AlumneModel->find($id_Alumne);
+    $curs=$Cursmodel ->find($id_Curs);
+
     $data = [
-        'matricula' => 'matricula 1122',
-        'id_matricula' => 2
+        'alumne' => $alumne,
+        'curs' => $curs
     ];
 
     return view('matricula/matricula_pago', $data);
+}
+
+public function pago_post()
+{
+    $session = session();
+
+    $matriculaModel = new MatriculaModel();
+
+    if (!$session->has('id_alumne')) {
+        return redirect()->to('login');
+    }
+
+    $id_alumne = $session->get('id_alumne');
+    $id_curs = $session->get('id_curs') ;
+
+    $data = [
+
+        'id_alumne' => $id_alumne,
+        'id_curs'   => $id_curs,
+        'estado'    => 'pendiente',
+        'pagado'    => 0
+
+    ];
+
+    $matriculaModel->insert($data);
+
+    return redirect()->to('matricula/pago/pdf')
+        ->with('success','Matrícula registrada correctamente. Entregue el justificante en el instituto.');
+}
+
+public function generar_pdf()
+{
+
+    $session = session();
+
+    $AlumneModel = new AlumneModel();
+    $CursModel = new CursModel();
+
+    $id_alumne = $session->get('id_alumne');
+    $id_curs = $session->get('id_curs') ;
+    $alumne = $AlumneModel->find($id_alumne);
+    $curs = $CursModel->find($id_curs);
+
+    $data = [
+        'alumne' => $alumne,
+        'curs' => $curs
+    ];
+
+    $html = view('pdf/matricula_pdf', $data);
+
+    $options = new Options();
+    $options->set('isRemoteEnabled', true);
+
+    $dompdf = new Dompdf($options);
+
+    $dompdf->loadHtml($html);
+
+    $dompdf->setPaper('A4','portrait');
+
+    $dompdf->render();
+
+    $dompdf->stream("matricula.pdf", ["Attachment" => false]);
 }
 }
