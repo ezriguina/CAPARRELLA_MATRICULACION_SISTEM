@@ -209,6 +209,7 @@ public function pago_view()
     return view('matricula/matricula_pago', $data);
 }
 
+
 public function pago_post()
 {
     $session = session();
@@ -234,6 +235,53 @@ public function pago_post()
     $matriculaModel->insert($data);
 
     return redirect()->to('matricula/pago/pdf')->with('success','Matrícula registrada correctamente. Entregue el justificante en el instituto.');
+}
+
+  public function generar_pdf()
+{
+    $session = session();
+
+    $AlumneModel = new AlumneModel();
+    $CursModel = new CursModel();
+    
+    $id_alumne = $session->get('id_alumne');
+    $id_curs = $session->get('id_curs');
+
+    $alumne = $AlumneModel->find($id_alumne);
+    $curs = $CursModel->find($id_curs);
+
+    $data = [
+        'alumne' => $alumne,
+        'curs' => $curs
+    ];
+
+    // Generar HTML desde la vista
+    $html = view('pdf/matricula_pdf', $data);
+
+    // Cargar TCPDF
+    $pdf = new \TCPDF();
+
+    // Configuración del documento
+    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetAuthor('Caparrella matriculacion ');
+    $pdf->SetTitle('Matricula');
+    $pdf->SetMargins(15, 15, 15);
+    $pdf->SetAutoPageBreak(TRUE, 15);
+
+    // Quitar header y footer si no los quieres
+    $pdf->setPrintHeader(false);
+    $pdf->setPrintFooter(false);
+
+    // Añadir página
+    $pdf->AddPage();
+
+    // Escribir HTML
+    $pdf->writeHTML($html, true, false, true, false, '');
+
+    // Salida del PDF
+    // 'I' = mostrar en navegador
+    // 'D' = forzar descarga
+    $pdf->Output('matricula.pdf', 'D');
 }
 
 }
