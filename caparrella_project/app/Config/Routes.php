@@ -13,7 +13,8 @@ $routes->get('matricula','MatriculaController::index');// bug acces
 $routes->post('matricula','MatriculaController::index_post');
 */$routes->get('/', 'Home::index');
 
-# LOGIN PUBLICO
+
+
 $routes->group('public', function($routes){
 
     $routes->get('login','LoginController::log');
@@ -24,7 +25,6 @@ $routes->group('public', function($routes){
 
 });
 
-# MATRICULA
 $routes->group('matricula', function($routes){
 
     $routes->get('/', 'MatriculaController::matricula_view');
@@ -40,4 +40,5 @@ $routes->group('matricula', function($routes){
     $routes->post('pago','MatriculaController::pago_post');
 
     $routes->get('pago/pdf','MatriculaController::generar_pdf');
+
 });

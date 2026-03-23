@@ -43,9 +43,9 @@ session()->set('login_email',$email_user);
 
 $email = \Config\Services::email();
 
-$email->setFrom('instituto@test.com','Instituto');
+$email->setFrom('ezriguina@inscaparrella.cat','Instituto');
 $email->setTo($email_user);
-$email->setSubject('Codigo matricula');
+$email->setSubject('Codigo de acceso para la matricula');
 $email->setMessage('Tu codigo es: '.$code);
 
 $email->send();

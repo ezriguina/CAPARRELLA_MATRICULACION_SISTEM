@@ -233,41 +233,7 @@ public function pago_post()
 
     $matriculaModel->insert($data);
 
-    return redirect()->to('matricula/pago/pdf')
-        ->with('success','Matrícula registrada correctamente. Entregue el justificante en el instituto.');
+    return redirect()->to('matricula/pago/pdf')->with('success','Matrícula registrada correctamente. Entregue el justificante en el instituto.');
 }
 
-public function generar_pdf()
-{
-
-    $session = session();
-
-    $AlumneModel = new AlumneModel();
-    $CursModel = new CursModel();
-
-    $id_alumne = $session->get('id_alumne');
-    $id_curs = $session->get('id_curs') ;
-    $alumne = $AlumneModel->find($id_alumne);
-    $curs = $CursModel->find($id_curs);
-
-    $data = [
-        'alumne' => $alumne,
-        'curs' => $curs
-    ];
-
-    $html = view('pdf/matricula_pdf', $data);
-
-    $options = new Options();
-    $options->set('isRemoteEnabled', true);
-
-    $dompdf = new Dompdf($options);
-
-    $dompdf->loadHtml($html);
-
-    $dompdf->setPaper('A4','portrait');
-
-    $dompdf->render();
-
-    $dompdf->stream("matricula.pdf", ["Attachment" => false]);
-}
 }
