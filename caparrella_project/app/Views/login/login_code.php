@@ -140,7 +140,7 @@ el código proporcionado por el instituto.
 
 <div class="mb-3">
 
-<label class="form-label">Código de acceso</label>
+<label class="form-label">Código de acceso  en <?= $email; ?></label>
 
 <input
 type="password"

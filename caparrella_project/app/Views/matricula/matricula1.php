@@ -145,7 +145,40 @@
                         <label class="form-check-label">Mutua</label>
                     </div>
                 </div>
+                <div class="mb-4">
+    <label class="form-label fw-semibold">Ejemplo de fotos del DNI</label>
 
+    <div class="row text-center">
+        <div class="col-md-6">
+            <img src="<?= base_url('img/1.png') ?>" 
+                 alt="Ejemplo DNI Frente"
+                 class="img-fluid rounded shadow mb-2"
+                 style="max-height:200px;">
+            <p class="small text-muted">Frente (anverso)</p>
+        </div>
+
+        <div class="col-md-6">
+            <img src="<?= base_url('img/2.png') ?>" 
+                 alt="Ejemplo DNI Dorso"
+                 class="img-fluid rounded shadow mb-2"
+                 style="max-height:200px;">
+            <p class="small text-muted">Dorso (reverso)</p>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Foto DNI (Frente)</label>
+        <input type="file" class="form-control form-control-lg" name="dni_front" accept=".jpg,.jpeg,.png" required>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label fw-semibold">Foto DNI (atras)</label>
+        <input type="file" class="form-control form-control-lg" name="dni_back" accept=".jpg,.jpeg,.png" required>
+    </div>
+</div>
+</div>
+<hr>
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label fw-semibold">Poblacio de naixement</label>

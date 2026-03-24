@@ -78,7 +78,6 @@ color:#9aa4b2;
 
 <body>
 
-<!-- NAVBAR -->
 
 <nav class="navbar">
 <div class="container">
@@ -98,7 +97,6 @@ class="me-2">
 </div>
 </nav>
 
-<!-- CONTENIDO -->
 
 <div class="container d-flex justify-content-center align-items-center flex-grow-1">
 
@@ -106,7 +104,6 @@ class="me-2">
 
 <div class="row g-0">
 
-<!-- PANEL IZQUIERDO -->
 
 <div class="col-md-5 left-panel">
 
@@ -121,7 +118,6 @@ y su documento de identificación.
 
 </div>
 
-<!-- PANEL DERECHO -->
 
 <div class="col-md-7 form-panel">
 
@@ -141,6 +137,7 @@ y su documento de identificación.
 type="email"
 class="form-control"
 name="email"
+id="email"
 placeholder="nombre@correo.com"
 required>
 
