@@ -19,10 +19,11 @@ $routes->group('public', function($routes){
 
     $routes->get('login','LoginController::log');
     $routes->post('login','LoginController::log_post');
-
+    
     $routes->get('login_code','LoginController::login_code');
     $routes->post('login_code','LoginController::login_code_post');
-
+    $routes->get('error_pre','loginController::login_code_error'); 
+    
 });
 
 $routes->group('matricula', function($routes){

@@ -12,7 +12,7 @@
 <style>
 
 body{
-background:linear-gradient(135deg,#0a4fbf,#16c172);
+background: #e2e8f0;
 min-height:100vh;
 font-family:"Segoe UI",Arial,sans-serif;
 display:flex;
@@ -20,7 +20,7 @@ flex-direction:column;
 }
 
 .navbar{
-background:white;
+background: #e2e8f0;
 box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 

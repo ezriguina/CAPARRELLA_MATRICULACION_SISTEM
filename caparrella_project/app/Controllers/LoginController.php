@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use Config\Email;
 
+use function PHPUnit\Framework\fileExists;
+
 class LoginController extends BaseController
 {
     public function index()
@@ -21,42 +23,68 @@ class LoginController extends BaseController
      echo view('login/login_public',$data);
     }
 
-public function log_post(){
-$session = session() ;
-helper('form');
 
-$validation = [
-'email' => 'required|valid_email',
-'code_pass' => 'required|min_length[5]'
-];
+public function log_post()
+{
+    $session = session();
+    helper('form');
 
-if(!$this->validate($validation)){
-    return redirect()->back()->withInput()->with('errors',$this->validator);
-}
+    $csvPath = WRITEPATH . 'uploads/alumne_pre.csv';
 
-$email_user = $this->request->getPost('email');
+    if (!file_exists($csvPath)) {
+        return redirect()->back()->with('error', 'Archivo no encontrado');
+    }
 
-$code = random_int(100000,999999);
+    $validation = [
+        'email' => 'required|valid_email',
+        'code_pass' => 'required|min_length[5]'
+    ];
 
-$session->set('login_code',$code);
-$session->set('login_email',$email_user);
+    if (!$this->validate($validation)) {
+        return redirect()->back()->withInput()->with('errors', $this->validator);
+    }
 
-$email = \Config\Services::email();
+    $email_user = $this->request->getPost('email');
+    $dni_user   = $this->request->getPost('code_pass');
 
-$email->setFrom('elbachirzriguinat@gmail.com','Instituto');
-$email->setTo($email_user);
-$email->setSubject('Codigo de acceso para la matricula');
-$message = view('emails/login_code', ['code' => $code]);
+    $handle = fopen($csvPath, 'r');
 
-$email->setMessage('Tu codigo es: '.$message);
+    fgetcsv($handle);
 
-$email->send();
+    while (($row = fgetcsv($handle, 1000, ",")) !== false) {
 
+        $email_csv = $row[0];
+        $dni_csv   = $row[1];
 
+        if ($email_csv === $email_user && $dni_csv === $dni_user) {
 
+            fclose($handle); 
 
-return redirect()->to('/public/login_code');
+            $code = random_int(100000, 999999);
 
+            $session->set('login_code', $code);
+            $session->set('login_email', $email_user);
+         
+            $email = \Config\Services::email();
+
+            $email->setFrom('elbachirzriguinat@gmail.com', 'Sistema de Matriculacion Instituto Caparrella');
+            $email->setTo($email_user);
+            $email->setSubject('Codigo de acceso para la matricula');
+
+            $message = view('emails/login_code', ['code' => $code]);
+            $email->setMessage($message);
+
+            if (!$email->send()) {
+                return redirect()->back()->with('error', 'Error enviando el email');
+            }
+
+            return redirect()->to('/public/login_code');
+        }
+    }
+
+    fclose($handle);
+    
+    return redirect()->back()->with('error', 'Este alumno no está preinscrito');
 }
 
 
@@ -86,13 +114,20 @@ return redirect()->to('/public/login_code');
    }
 
    $code_pass = $this->request->getPost('code_pass');
-$pass_code = $session->get('login_code');
-
-if ($code_pass !== $pass_code) { 
-
+   $pass_code = $session->get('login_code');
+  
+if ((int)$code_pass !== (int)$pass_code) { 
     return redirect()->back()->withInput()->with('error', 'Código inválido');
-}
+} 
 
+   
    return redirect()->to('matricula');
  }
+ public function login_code_error(){
+      helper('form') ;  
+    
+      return view('errors/error_login') ; 
+
+ }
+  
 }

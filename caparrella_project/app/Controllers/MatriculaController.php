@@ -136,8 +136,11 @@ return redirect()->to('matricula/datos_curs');
 
 }
     public function m_curs_view(){
+        $cursModel = new CursModel(); 
+        
         helper('form');
-    return view('matricula/matricula2');
+
+        return view('matricula/matricula2');
     }
 
 public function m_curs_post(){
@@ -183,6 +186,8 @@ return redirect()->to('matricula/pago');
 
 }
 
+
+
 public function pago_view()
 {
     $session=session(); 
@@ -194,7 +199,7 @@ public function pago_view()
     if (!$session->has('id_alumne') || !$session->has('id_curs')) {
     return redirect()->to('matricula/datos_curs')->with('error',' te falta datos del alumne o curs ')->withInput();
     }
-
+    
     $id_Alumne = session()->get('id_alumne');
     $id_Curs = session()->get('id_curs');
     

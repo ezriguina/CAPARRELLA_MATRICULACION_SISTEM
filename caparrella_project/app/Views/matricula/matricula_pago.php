@@ -75,12 +75,7 @@
                 src="<?= base_url('img/logo-removebg-preview.png') ?>" 
                 alt="Logo Instituto"
                 height="40"
-                class="me-2">
-
-            Proceso de Matrícula
-
-        </a>
-
+                class="me-2">Proceso de Matrícula</a>
     </div>
 </nav>
 
@@ -174,7 +169,7 @@
                             <span>Código entidad</span>
                             <strong>0415876</strong>
                         </li>
-
+  
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Concepto</span>
                             <strong>INGRESSOS ALUMNES</strong>
@@ -261,11 +256,7 @@
                                 Pagar con QR
                             </h6>
 
-                            <img
-                                class="qr-img"
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://ja.cat/2526"
-                                alt="QR Pago">
-
+                            <img class="qr-img"  src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://ja.cat/2526"  alt="QR Pago">
                             <p class="text-muted mt-2">
                                 Escanea el código para acceder al pago
                             </p>
