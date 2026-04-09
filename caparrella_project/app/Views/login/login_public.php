@@ -275,7 +275,13 @@
                         </button>
                     </div>
                     
-                </form>
+                </form>   
+
+                <div class="text-center mt-3">
+    <a href="<?= base_url('privat/education') ?>" class="text-decoration-none text-primary fw-semibold">
+        <i class="bi bi-arrow-right-circle me-1"></i> Acceder directamente a la zona privada
+    </a>
+</div>
 
                 <div class="footer-note">
                     <i class="bi bi-shield-lock-fill me-1"></i> Plataforma validada · 

@@ -260,8 +260,11 @@
                             <p class="text-muted mt-2">
                                 Escanea el código para acceder al pago
                             </p>
-
-                        </div>
+                        <hr>
+                        
+                        </div> <br>
+                        <label for="">Subir archivo del comprovante de la paga </label>
+                        <input type="file" >
 
                     </div>
 
