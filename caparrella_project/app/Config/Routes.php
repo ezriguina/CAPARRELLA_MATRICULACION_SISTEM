@@ -93,5 +93,5 @@ $routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');
 $routes->post('matricula/datos_pagament','MatriculaController::m_pagament_post'); 
 
 $routes->get('privat/Tandada','TandadaController::Tanda_view'); 
-$routes->get('privat/Tandada/create','TbadadaController::T_create'); 
-$routes->post('privat/Tandada/create','TbadadaController::T_post'); 
+$routes->get('privat/Tandada/create','TandadaController::T_create'); 
+$routes->post('privat/Tandada/create','TandadaController::T_post'); 
