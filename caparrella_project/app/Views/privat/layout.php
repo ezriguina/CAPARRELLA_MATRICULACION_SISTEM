@@ -68,11 +68,13 @@
   <nav id="sidebar" class="vh-100 p-3 d-flex flex-column">
     
     <div class="logo text-center mb-4">
-      <img src="/img/logo.jpg" alt="Logo">
+      <a href="<?= base_url('privat/Dashboard/Instiut-Caparrella') ?>">
+      <img src="<?= base_url('img/logo-removebg-preview.png') ?>" alt="Logo">
+      </a>
     </div>
-
+     
     <ul class="nav nav-pills flex-column mb-auto">
-
+      
       <li class="nav-item mb-2">
         <a class="nav-link" href="<?= base_url('privat/education') ?>">
           <i class="bi bi-diagram-3"></i> Estructuras

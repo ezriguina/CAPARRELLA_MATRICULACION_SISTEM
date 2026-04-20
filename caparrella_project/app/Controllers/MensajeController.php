@@ -7,6 +7,7 @@ use App\Models\MensajeModel;
 
 class MensajeController extends BaseController
 {
+    
     private $mensajeModel;
 
     public function __construct()

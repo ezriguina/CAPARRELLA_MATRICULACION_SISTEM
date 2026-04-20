@@ -71,7 +71,7 @@ p {
 <body>
 
 <div class="header">
-    <img src="<?= base_url('img/logo.jpg') ?>" alt="Logo" class="logo">
+    <img src="<?= base_url('img/logo_cp') ?>" alt="Logo" class="logo">
     <div class="title">Confirmación de Matrícula</div>
 </div>
 

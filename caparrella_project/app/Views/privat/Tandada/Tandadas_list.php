@@ -15,7 +15,6 @@
         </a>
     </div>
 
-    <!-- SEARCH CARD -->
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">    
             <form action="<?= base_url('/admin/galeria/searchGaleriaCrud') ?>" method="GET">
@@ -39,7 +38,6 @@
         </div>
     </div>
 
-    <!-- TABLE CARD -->
     <div class="card shadow-sm border-0">
         <div class="card-body p-0">
 
@@ -53,12 +51,41 @@
                                 <th>Fecha Inicio</th>
                                 <th>Fecha Fin</th>
                                 <th>Estado</th>
-                                <th>Activo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php foreach($tandada as $tandada) :?>
+                            <tr> 
+                                <th><?= esc($tandada['id_tandada']) ?></th>
+                                <th><?= esc($tandada['nom_tandada']) ?></th>
+                                <th><?= esc($tandada['fecha_inici']) ?></th>
+                                <th><?= esc($tandada['fecha_fin']) ?></th>
+                                <?php if ($tandada['estado'] == 1): ?>
+                               <th style="color: green;">Active</th>
+                               <?php elseif ($tandada['estado'] == 0): ?>
+                               <th style="color: red;">Desactivado</th>
+                               <?php endif; ?><th>
+    <?= esc($tandada['id_tandada']) ?>
 
+    <a href="/tandada/ver/<?= esc($tandada['id_tandada']) ?>" 
+       class="btn btn-sm btn-primary">
+        Ver
+    </a>
+    
+    <a href="/tandada/editar/<?= esc($tandada['id_tandada']) ?>" 
+       class="btn btn-sm btn-warning">
+        Editar
+    </a>
+
+    <a href="/tandada/eliminar/<?= esc($tandada['id_tandada']) ?>" 
+       class="btn btn-sm btn-danger"
+       onclick="return confirm('¿Seguro que quieres eliminar?');">
+        Eliminar
+    </a>
+</th>
+                            </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>

@@ -871,6 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
 </script>
 
 <?= $this->endSection() ?>

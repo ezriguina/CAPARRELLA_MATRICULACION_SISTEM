@@ -11,6 +11,7 @@ use App\Models\ValidationLockModel;
 use App\Models\ExpedienteModel;
 use App\Models\EstructurasModel;
 use App\Libraries\IdObfuscator;
+use App\Models\TandadaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -265,34 +266,46 @@ public function pago_post()
         'curs' => $curs
     ];
 
-    // Generar HTML desde la vista
     $html = view('pdf/matricula_pdf', $data);
 
-    // Cargar TCPDF
     $pdf = new \TCPDF();
 
-    // Configuración del documento
-    $pdf->SetCreator(PDF_CREATOR);
+    $pdf->SetCreator($alumne);
     $pdf->SetAuthor('Caparrella matriculacion ');
     $pdf->SetTitle('Matricula');
     $pdf->SetMargins(15, 15, 15);
     $pdf->SetAutoPageBreak(TRUE, 15);
 
-    // Quitar header y footer si no los quieres
     $pdf->setPrintHeader(false);
     $pdf->setPrintFooter(false);
 
-    // Añadir página
     $pdf->AddPage();
 
-    // Escribir HTML
     $pdf->writeHTML($html, true, false, true, false, '');
 
-    // Salida del PDF
-    // 'I' = mostrar en navegador
-    // 'D' = forzar descarga
+    
     $pdf->Output('matricula.pdf', 'D');
 }
+//----------------------------------------------------------------------------
+//Dashboard PRIVAT FOR ADMINS 
+public function Dashborad_view(){
+helper('form');
+
+$AlumneModel=new AlumneModel() ;
+$CursModel = new CursModel();
+$matriculaModel= new MatriculaModel();
+$mensajeModel=new MensajeModel(); 
+$TandadaModel = new TandadaModel(); 
+
+
+$data['Alumne']=$AlumneModel->count;
+
+return view('privat/dashboard',$data);
+
+}
+
+
+
 //-----------------------------------------------------------------------------
 
 private $mensajeModel;

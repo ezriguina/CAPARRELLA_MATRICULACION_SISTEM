@@ -92,6 +92,12 @@ $routes->post('matricula/datos_alumne','MatriculaController::m_alumne_post');
 $routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');
 $routes->post('matricula/datos_pagament','MatriculaController::m_pagament_post'); 
 
+
+$routes->get('privat/Dashboard/Instiut-Caparrella','MatriculaController::Dashborad_view');
 $routes->get('privat/Tandada','TandadaController::Tanda_view'); 
 $routes->get('privat/Tandada/create','TandadaController::T_create'); 
 $routes->post('privat/Tandada/create','TandadaController::T_post'); 
+
+$routes->get('privat/Tandada/edit/(:segment)','TandadaController::T_edit'); 
+$routes->post('privat/Tandada/edit/(:segment)','TandadaController::T_edit_post'); 
+

@@ -16,9 +16,16 @@ class TandadaController extends BaseController
     }
     public function tanda_view(){
         helper('from');
-        //me faltan los models 
-        return view('privat/Tandada/Tandadas_list');
+   $TandadaModel=new TandadaModel();
 
+   $CursoModel = new CursModel() ;
+    
+   $Tandadas = $TandadaModel->paginate(6,'default'); 
+
+   $data['tandada']=$Tandadas ; 
+
+    return view('privat/Tandada/Tandadas_list',$data);
+    
     }  
 
    public function T_create(){
@@ -61,7 +68,7 @@ class TandadaController extends BaseController
    'fecha_fin' => $fecha_f,
    'estado' => $estado
    ];
-
+  
    $TandadaModel ->insert($data_tanda);
    return redirect()->to('privat/Tandada/create')->with('succes','Tandada Created exitoso') ;
    }

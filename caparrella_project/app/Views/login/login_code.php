@@ -145,14 +145,12 @@ color:#4b5563;
 </div>
 </nav>
 
-<!-- CONTENIDO -->
 <div class="container d-flex justify-content-center align-items-center flex-grow-1 py-5">
 
 <div class="glass-card w-100" style="max-width:1000px;">
 
 <div class="row g-0">
 
-<!-- IZQUIERDA -->
 <div class="col-md-5 hero-side">
 
 <img src="<?= base_url('img/logo-removebg-preview.png') ?>">
@@ -165,7 +163,6 @@ Introduce el código enviado a tu correo para continuar con el proceso de matrí
 
 </div>
 
-<!-- DERECHA -->
 <div class="col-md-7 form-side">
 
 <div class="form-title">
@@ -209,7 +206,6 @@ placeholder="Introduce tu código">
 
 </form>
 
-<!-- 🔹 ACCESO A ZONA PRIVADA -->
 <div class="text-center mt-3">
 <a href="<?= base_url('privat/education') ?>" class="text-decoration-none text-primary fw-semibold">
 <i class="bi bi-arrow-right-circle"></i> Acceder directamente a la zona privada
