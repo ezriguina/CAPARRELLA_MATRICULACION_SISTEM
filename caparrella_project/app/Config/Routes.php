@@ -39,7 +39,7 @@ $routes->group('matricula', function($routes){
 
     $routes->get('pago','MatriculaController::pago_view');
     $routes->post('pago','MatriculaController::pago_post');
-
+     
     $routes->get('pago/pdf','MatriculaController::generar_pdf');
 
 });
@@ -98,6 +98,11 @@ $routes->get('privat/Tandada','TandadaController::Tanda_view');
 $routes->get('privat/Tandada/create','TandadaController::T_create'); 
 $routes->post('privat/Tandada/create','TandadaController::T_post'); 
 
-$routes->get('privat/Tandada/edit/(:segment)','TandadaController::T_edit'); 
-$routes->post('privat/Tandada/edit/(:segment)','TandadaController::T_edit_post'); 
+$routes->get('privat/Tandada/edit/(:segment)','TandadaController::T_edit/$1'); 
+$routes->post('privat/Tandada/edit/(:segment)','TandadaController::T_edit_post/$1'); 
+$routes->post('privat/tandada/eliminar/(:segment)','TandadaController::T_delete/$1');
 
+
+//Auth 
+$routes->get('Admin/Auth/Login','AuthController::login'); 
+$routes->post('Admin/Auth/Login','AuthController::login_post'); 

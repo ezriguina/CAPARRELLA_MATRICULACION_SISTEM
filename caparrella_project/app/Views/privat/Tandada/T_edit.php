@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Tandada</title>
+    <title>Editar Tandada</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -42,28 +42,32 @@
 
     <div class="card card-custom p-4">
         
-        <h2 class="mb-4 header-title">Crear nueva tandada</h2>
+        <h2 class="mb-4 header-title">Editar tandada</h2>
 
-        <form action="<?= base_url('privat/Tandada/create') ?>" method="post" enctype="multipart/form-data">
+        <form action="<?= base_url('privat/Tandada/edit/' . $tandada['id_tandada']) ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field(); ?> 
-        <div style="color: red;">
-        <?= validation_list_errors() ?>
-        </div>
-            <div class="mb-3">
-                <label class="form-label">Nombre de la tandada</label>
-                <input type="text" name="nom" class="form-control" placeholder="Ej: Tandada Primavera 2026" >
-            </div>
-        
-            <div class="mb-3">
-                <label class="form-label">Estado</label>
-                <select name="estado" class="form-select" >
-                    <option value="" disabled selected>Selecciona estado</option>
-                    <option value="1">Activar</option>
-                    <option value="0">Desactivar</option>
-                </select>
-            </div>
 
-            <div class="mb-3">
+        <div style="color: red;">
+            <?= validation_list_errors() ?>
+        </div>
+
+        <!-- NOMBRE -->
+        <div class="mb-3">
+            <label class="form-label">Nombre de la tandada</label>
+            <input type="text" name="nom" class="form-control"
+                   value="<?= esc($tandada['nom_tandada']) ?>">
+        </div>
+    
+        <!-- ESTADO -->
+        <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select name="estado" class="form-select">
+                <option value="1" <?= $tandada['estado'] == 1 ? 'selected' : '' ?>>Activar</option>
+                <option value="0" <?= $tandada['estado'] == 0 ? 'selected' : '' ?>>Desactivar</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
                 <label class="form-label">Curso</label>
                 <select name="curso" class="form-select" >
                     <?php foreach($cursos as $curso) :?>
@@ -73,28 +77,31 @@
                 </select>
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">Subir imágenes</label>
-                <input type="file" name="imatge_galeria[]" class="form-control" multiple >
+        <div class="mb-3">
+            <label class="form-label">Actualizar imágenes</label>
+            <input type="file" name="imatge_galeria[]" class="form-control" multiple>
+        </div>
+
+        <!-- FECHAS -->
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fecha inicio</label>
+                <input type="date" name="fecha_inicio" class="form-control"
+                       value="<?= esc($tandada['fecha_inici']) ?>">
             </div>
 
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Fecha inicio</label>
-                    <input type="date" name="fecha_inicio" class="form-control" >
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Fecha fin</label>
-                    <input type="date" name="fecha_fin" class="form-control" >
-                </div>
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fecha fin</label>
+                <input type="date" name="fecha_fin" class="form-control"
+                       value="<?= esc($tandada['fecha_fin']) ?>">
             </div>
+        </div>
 
-            <div class="d-grid mt-4">
-                <button type="submit" class="btn btn-primary btn-lg">
-                    Editar
-                </button>
-            </div>
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">
+                Guardar cambios
+            </button>
+        </div>
 
         </form>
 
@@ -105,5 +112,4 @@
 </body>
 
 <?= $this->endSection() ?>
-
 </html>

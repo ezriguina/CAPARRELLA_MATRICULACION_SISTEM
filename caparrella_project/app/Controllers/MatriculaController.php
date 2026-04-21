@@ -12,6 +12,7 @@ use App\Models\ExpedienteModel;
 use App\Models\EstructurasModel;
 use App\Libraries\IdObfuscator;
 use App\Models\TandadaModel;
+use App\Models\TutorModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -75,10 +76,11 @@ class MatriculaController extends BaseController
 
     }
     public function m_alumne_post(){
-        $SESSION=session();
+      $SESSION=session();
       helper('form');
       $AlumneModel = new AlumneModel();
-      
+      $TutorModel = new TutorModel(); 
+
      $nom_cognom = $this->request->getPost('nom_complet');
      $dni =$this->request->getPost('dni');
      $sanitat = $this->request->getPost('TSI');
@@ -132,15 +134,49 @@ $data = [
 
 ];
 $AlumneModel->insert($data);
+ 
 
  $alumne = $AlumneModel->where('Dni_alumne',$dni)->first() ;
+
     $sessionData = [
         'id_alumne' => $alumne['id_alumne'],
     ];
     $SESSION->set($sessionData);
+
+
+    
+ $tutor_nombre     = $this->request->getPost('tutor_nombre');
+$tutor_apellidos  = $this->request->getPost('tutor_apellidos');
+$tutor_dni        = $this->request->getPost('tutor_dni');
+$tutor_telefono   = $this->request->getPost('tutor_telefono');
+$tutor_email      = $this->request->getPost('tutor_email');
+$tutor_direccion  = $this->request->getPost('tutor_direccion');
+$tutor_ciudad     = $this->request->getPost('tutor_ciudad');
+$tutor_cp         = $this->request->getPost('tutor_cp');
+
+
+if (!empty($tutor_nombre)) {
+
+    $tutorData = [
+        'nombre'        => $tutor_nombre,
+        'apellidos'     => $tutor_apellidos,
+        'dni'           => $tutor_dni,
+        'telefono'      => $tutor_telefono,
+        'email'         => $tutor_email,
+        'direccion'     => $tutor_direccion,
+        'ciudad'        => $tutor_ciudad,
+        'codigo_postal' => $tutor_cp,
+        'alumno_id'     => $SESSION->get('id_alumne')
+    ];
+
+    $TutorModel->insert($tutorData);
+
 return redirect()->to('matricula/datos_curs');
 
 }
+
+    }
+
     public function m_curs_view(){
         $cursModel = new CursModel(); 
         
@@ -286,22 +322,28 @@ public function pago_post()
     
     $pdf->Output('matricula.pdf', 'D');
 }
+
 //----------------------------------------------------------------------------
 //Dashboard PRIVAT FOR ADMINS 
-public function Dashborad_view(){
-helper('form');
+public function Dashborad_view()
+{
+    helper('form');
 
-$AlumneModel=new AlumneModel() ;
-$CursModel = new CursModel();
-$matriculaModel= new MatriculaModel();
-$mensajeModel=new MensajeModel(); 
-$TandadaModel = new TandadaModel(); 
+    $AlumneModel    = new AlumneModel();
+    $CursModel      = new CursModel();
+    $matriculaModel = new MatriculaModel();
+    $mensajeModel   = new MensajeModel();
+    $TandadaModel   = new TandadaModel();
 
+    $data = [
+        'totalAlumnos'    => $AlumneModel->countAll(),
+        'totalCursos'     => $CursModel->countAll(),
+        'totalMatriculas' => $matriculaModel->countAll(),
+        'totalMensajes'   => $mensajeModel->countAll(),
+        'totalTandadas'   => $TandadaModel->countAll(),
+    ];
 
-$data['Alumne']=$AlumneModel->count;
-
-return view('privat/dashboard',$data);
-
+    return view('privat/dashboard', $data);
 }
 
 

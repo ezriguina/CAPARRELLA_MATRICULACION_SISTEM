@@ -14,7 +14,7 @@ class Autentica implements FilterInterface
         if (!session()->get('loggedIn')) {
             return redirect()->to(base_url('userdemo/login'))->with('error', 'Si us plau, inicia sessió.');
         }
-
+        
         // 2. Validació d'arguments (Noms específics)
         // Si la ruta té arguments, ex: filter:autentica:admin,profe
         if ($arguments !== null) {
