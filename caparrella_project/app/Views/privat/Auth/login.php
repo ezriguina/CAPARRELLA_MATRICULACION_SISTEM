@@ -61,22 +61,21 @@ body::before {
 
     <div class="card login-card shadow-lg border-0 text-center p-4">
 
-        <!-- LOGO -->
         <div class="mb-3">
             <img src="<?= base_url('img/logo-removebg-preview.png') ?>" class="logo" alt="Company Logo">
         </div>
 
         <h5 class="mb-3">Iniciar sesión</h5>
 
-        <form action="<?= site_url('/login') ?>" method="post">
-            
+        <form action="<?= base_url('Admin/Auth/Login') ?>" method="post">
             <?= csrf_field(); ?>
+            <?= validation_list_errors() ?>
 
             <div class="mb-3 text-start">
-                <label class="form-label">Nom d'usuari</label>
+                <label class="form-label">Usuari</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input type="text" name="username" class="form-control" placeholder="Usuario" required>
+                    <input type="text" name="email" class="form-control" placeholder="correo" >
                 </div>
             </div>
 
@@ -84,10 +83,10 @@ body::before {
                 <label class="form-label">Contrasenya</label>
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="••••••" required>
+                    <input type="password" name="password" class="form-control" placeholder="••••••" >
                 </div>
             </div>
-
+     
             <?php if (session()->getFlashdata('error')): ?>
                 <div class="alert alert-danger text-center">
                     <?= session('error') ?>

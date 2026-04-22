@@ -61,10 +61,9 @@ class MatriculaController extends BaseController
      
      if(!$this->validate($validation_rules,$messatges)){
           redirect()->back()->withInput('error',$this->validator);
- 
      }
     
-
+     
      return redirect()->to('matricula/datos_alumne');
     
     }

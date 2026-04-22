@@ -55,7 +55,7 @@ class UserDemo extends BaseController
     {
         // 1. Destruïm la sessió actual
         session()->destroy();
-
+        
         // 2. Redirigim al login enviant un missatge Flash
         // El primer paràmetre 'msg' és la clau, el segon el text.
         return redirect()->to('/userdemo/login')
