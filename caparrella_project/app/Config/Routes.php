@@ -104,7 +104,7 @@ $routes->post('privat/tandada/eliminar/(:segment)','TandadaController::T_delete/
 
 
 //Auth  
-       
+         
 $routes->get('Admin/Auth/Login','AuthController::login'); 
 $routes->post('Admin/Auth/Login','AuthController::login_post'); 
 $routes->post('Admin/Auth/logout','AuthController::logout'); 

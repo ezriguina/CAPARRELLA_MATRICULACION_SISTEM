@@ -73,7 +73,7 @@ public function log_post()
 
             $message = view('emails/login_code', ['code' => $code]);
             $email->setMessage($message);
-
+         
             if (!$email->send()) {
                 return redirect()->back()->with('error', 'Error enviando el email');
             }
