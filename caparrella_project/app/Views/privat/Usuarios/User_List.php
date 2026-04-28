@@ -88,7 +88,7 @@
                                     Editar
                                 </a>
 
-                                <form action="<?= base_url('privat/user/delete/' . esc($user['id'])) ?>" method="post" style="display:inline;">
+                                <form action="<?= base_url('privat/Users/eliminar/' . esc($user['id'])) ?>" method="post" style="display:inline;">
                                     <?= csrf_field() ?>
                                     <button type="submit" 
                                         class="btn btn-sm btn-outline-danger"

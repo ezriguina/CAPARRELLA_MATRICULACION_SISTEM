@@ -99,7 +99,8 @@ class UsersController extends BaseController
         $data['user'] = $UsersModel->find($id);
 
         return view('privat/Usuarios/User_edit' ,$data) ; 
-    }
+    } 
+
     public function U_edit_post($id){
       helper('form') ; 
         $UsersModel = new UserModel() ; 
@@ -143,12 +144,15 @@ class UsersController extends BaseController
             ]
         ],
     ];
+    
 
     if (!$this->validate($validation)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    }
+    } 
+
      $password = $this->request->getPost('password');
-    $password_hash = password_hash($password,PASSWORD_DEFAULT) ;
+    $password_hash = password_hash($password,PASSWORD_DEFAULT) ; 
+
     $data = [
         'name'     => $this->request->getPost('name'),
         'email'    => $this->request->getPost('email'),
@@ -159,6 +163,27 @@ class UsersController extends BaseController
     $UsersModel->update($id,$data) ; 
 
 
-        return redirect()->to('privat/Users/list')->with('succes','datos Actualizados') ; 
+    return redirect()->to('privat/Users/list')->with('succes','datos Actualizados') ; 
+    } 
+    public function U_delete($id){
+    $session = session(); 
+
+    $UsersModel = new UserModel() ; 
+    $user_actual = $session->get('id') ;
+
+    $user = $UsersModel->where('id',$id)->first() ;
+    
+    if($user_actual==$user){
+    $UsersModel->delete($id) ;
+    }else{ 
+     
+        return redirect()->back()->with('Error','No puedes Borrar a ti mismo'); 
+        
+    }
+     
+    
+
+    return redirect()->back()->with('succes','Usuario eleminiado') ;
+
     }
 }

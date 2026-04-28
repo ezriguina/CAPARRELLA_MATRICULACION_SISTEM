@@ -111,6 +111,8 @@ $routes->post('privat/Users/create','UsersController::U_post',['filter' => 'auth
 $routes->get('privat/Users/edit/(:segment)','UsersController::U_edit/$1',['filter' => 'auth']); 
 $routes->post('privat/Users/edit/(:segment)','UsersController::U_edit_post/$1',['filter' => 'auth']); 
 $routes->post('privat/Users/eliminar/(:segment)','UsersController::U_delete/$1',['filter' => 'auth']);
+//matriculas 
+$routes->get('privat/Matriculas/listado','MatriculaController::Matricula_list') ; 
 
 
 //Auth  

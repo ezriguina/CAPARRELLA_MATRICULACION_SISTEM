@@ -350,7 +350,35 @@ public function Dashborad_view()
 
 
     return view('privat/dashboard', $data);
+}  
+
+public function Matricula_list(){
+    helper('form') ;
+    $matriculaModel = new MatriculaModel(); 
+    $alumneModel = new AlumneModel() ; 
+    $cursModel = new CursModel() ; 
+    $TandadaModel = new TandadaModel(); 
+
+
+    $matrciulas=$matriculaModel->paginate(10,'default') ;
+    $alumneNom=$alumneModel->
+    $data['matriculas'] = $matrciulas; 
+    $data['alumne'] = $alumneModel; 
+    $data['curs'] = $cursModel; 
+    $data['Tanda'] = $TandadaModel; 
+    $data['pager'] = $matriculaModel->pager; 
+
+    
+    return view('privat/Expedientes/matriculas/matriculas_list',$data) ; 
+
 }
+
+
+
+
+
+
+
 
 
 

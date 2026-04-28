@@ -95,7 +95,7 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link" href="<?= base_url('privat/validados') ?>">
+        <a class="nav-link" href="<?= base_url('privat/Matriculas/listado') ?>">
           <i class="bi bi-check-circle"></i> Matriculas 
         </a>
       </li>
