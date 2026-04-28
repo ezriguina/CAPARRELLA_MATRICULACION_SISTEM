@@ -22,6 +22,7 @@
       width: 260px;
       background: #111827;
       color: #fff;
+      
     }
 
     #sidebar .nav-link {
@@ -95,7 +96,7 @@
 
       <li class="nav-item mb-2">
         <a class="nav-link" href="<?= base_url('privat/validados') ?>">
-          <i class="bi bi-check-circle"></i> Validados
+          <i class="bi bi-check-circle"></i> Matriculas 
         </a>
       </li>
 
@@ -108,6 +109,12 @@
       <li class="nav-item mb-2">
         <a class="nav-link" href="<?= base_url('privat/mensatges') ?>">
           <i class="bi bi-chat-dots"></i> Mensajes
+        </a>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="<?= base_url('privat/Users/list') ?>">
+          <i class="bi bi-people"></i> Gestionar Usuarios
         </a>
       </li>
 
@@ -125,8 +132,7 @@
       <h6 class="mb-0">Panel Privado</h6>
 
       <div class="d-flex align-items-center gap-3">
-        <span class="text-muted">Usuario</span>
-        <a href="<?= base_url('logout') ?>" class="btn btn-sm btn-outline-danger">
+        <a href="<?= base_url('Admin/Auth/logout') ?>" class="btn btn-sm btn-outline-danger">
           <i class="bi bi-box-arrow-right"></i>
         </a>
       </div>

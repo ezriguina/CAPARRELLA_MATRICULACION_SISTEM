@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class AuthController extends BaseController
@@ -16,34 +17,56 @@ class AuthController extends BaseController
         helper('form'); 
        
         return view('privat/Auth/login'); 
-    }
+    } 
+
     public function login_post(){
-      $_SESSION = session()->start() ;
-      helper('form') ; 
-      $email = $this->request->getPost('email');
-      $password = $this->request->getPost('password') ; 
 
+    $session = session();   
+    $UserModel = new UserModel();
 
-      $rules=[
-      'email' => 'required',
-      'password'=>'required' 
-      ];
+    helper('form'); 
 
-      if(!$this->validate($rules)){
-        return redirect()->to('Admin/Auth/Login')->with('Error',$rules)->withInput();
-      }
-      
-      return redirect()->to('privat/Dashboard/Instiut-Caparrella'); 
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password'); 
 
-    }      
+    $usuario = $UserModel->where('email', $email)->first(); 
+
+    $rules = [
+        'email' => 'required',
+        'password' => 'required' 
+    ];
+
+    if (!$this->validate($rules)) {
+        return redirect()->back()->with('error', $this->validate($rules));
+    }
+    
+    if ($usuario) {
+        if (password_verify($password, $usuario['password'])) {
+
+            $sessionData = [
+                'id'    => $usuario['id'],
+                'name'  => $usuario['name'],
+                'email' => $usuario['email'],
+                'role'  => $usuario['role'],
+                'logged_in' => true
+            ]; 
+
+            $session->set($sessionData); 
+
+            return redirect()->to('privat/Dashboard/Instiut-Caparrella')->with('success', 'Logged correctamente');
+        }
+    }
+
+    return redirect()->to('Admin/Auth/Login')->with('error', 'Credenciales incorrectas')->withInput();
+} 
+
     public function logout(){
-    $_SESSION = session() ;
-    $_SESSION ->start() ;
+      helper('form'); 
+
+    $session =session() ;
      
 
-    $_SESSION->destroy(); 
-
-
+    $session->destroy(); 
     return redirect()->to('Admin/Auth/Login')->with('Succes' , 'has cerrado session'); 
      
     }

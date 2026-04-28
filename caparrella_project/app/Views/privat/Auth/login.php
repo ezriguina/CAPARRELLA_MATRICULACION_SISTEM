@@ -100,7 +100,7 @@ body::before {
             </div>
 
         </form>
-
+        
         <div class="mt-3 small text-muted">
             © <?= date('Y') ?> instut caparrella
         </div>

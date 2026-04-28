@@ -139,12 +139,10 @@ color:#4b5563;
 <div class="container">
 <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
 <img src="<?= base_url('img/logo-removebg-preview.png') ?>" height="40">
-<span class="brand-text">Matrícula Inteligente</span>
 </a>
 </div>
 </nav>
 
-<!-- CONTENIDO -->
 <div class="container d-flex justify-content-center align-items-center flex-grow-1 py-5">
 
 <div class="glass-card w-100" style="max-width:1000px;">
@@ -164,7 +162,6 @@ Verifica que dispones de toda la documentación necesaria antes de iniciar el pr
 
 </div>
 
-<!-- DERECHA -->
 <div class="col-md-7 form-side">
 
 <div class="form-title">
@@ -179,7 +176,7 @@ Verifica que dispones de toda la documentación necesaria antes de iniciar el pr
 <div class="form-check">
 <input class="form-check-input" type="checkbox" id="check1" name="check1">
 <label class="form-check-label" for="check1">
-Fotografía del DNI (anverso y reverso)
+Fotografía del DNI (reverso)
 </label>
 </div>
 
@@ -212,9 +209,8 @@ Documentación académica requerida
 
 </form>
 
-<!-- 🔹 ACCESO ZONA PRIVADA -->
 <div class="text-center mt-3">
-<a href="<?= base_url('privat/education') ?>" class="text-decoration-none text-primary fw-semibold">
+<a href="<?= base_url('privat/Dashboard/Instiut-Caparrella') ?>" class="text-decoration-none text-primary fw-semibold">
 <i class="bi bi-lock-fill"></i> Acceder a zona privada
 </a>
 </div>

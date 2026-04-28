@@ -13,6 +13,7 @@ use App\Models\EstructurasModel;
 use App\Libraries\IdObfuscator;
 use App\Models\TandadaModel;
 use App\Models\TutorModel;
+use App\Models\UserModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -103,7 +104,7 @@ class MatriculaController extends BaseController
 'Poblacio' => 'required|min_length[2]|max_length[100]',
 'data_nacimiento' => 'required|valid_date[Y-m-d]',
 'domicili' => 'required|min_length[5]|max_length[150]',
-'tlf_familiar' => 'required|numeric|min_length[9]|max_length[15]',
+'tlf_familiar' => 'required',
 'municipi' => 'required|min_length[2]|max_length[100]',
 'codi_postal' => 'required|regex_match[/^[0-9]{5}$/]',
 'email_alumne' => 'required|valid_email|max_length[150]'
@@ -185,42 +186,37 @@ return redirect()->to('matricula/datos_curs');
     }
 
 public function m_curs_post(){
+    $matriculaModel = new MatriculaModel(); 
+
 $session = session();
 helper('form');
-
+$curso = $this->request->getPost('Nom_curs');
 $validation = [
-
 'Nom_curs' => 'required',
-'codigo_curs' => 'required|min_length[3]',
-'precio' => 'required|decimal'
-
 ];
 
 if(!$this->validate($validation)){
 
-return redirect()
-->back()
-->withInput()
-->with('errors',$this->validator);
+return redirect()->back()->withInput()->with('errors',$this->validator);
 
 }
 
 $Cursmodel = new CursModel();
-
+/*
 $data = [
 
 'Nom_curs' => $this->request->getPost('Nom_curs'),
-'codigo_curs' => $this->request->getPost('codigo_curs'),
-'precio' => $this->request->getPost('precio')
 
-];
-$Cursmodel->insert($data);
+]; */
+//$Cursmodel->insert($data);
 
 
-$curs = $Cursmodel->where('nom_curs',$data['Nom_curs'])->first();
+$curs = $Cursmodel->where('nom_curs',$curso)->first();
+
 $sessionData=[
 'id_curs' => $curs['id_curs']
-];
+]; 
+
 $session ->set($sessionData); 
 
 return redirect()->to('matricula/pago');
@@ -277,12 +273,12 @@ public function pago_post()
         'pagado'    => 0
 
     ];
-
+    
     $matriculaModel->insert($data);
 
     return redirect()->to('matricula/pago/pdf')->with('success','Matrícula registrada correctamente. Entregue el justificante en el instituto.');
 }
-
+ 
   public function generar_pdf()
 {
     $session = session();
@@ -295,17 +291,17 @@ public function pago_post()
 
     $alumne = $AlumneModel->find($id_alumne);
     $curs = $CursModel->find($id_curs);
-
+    
     $data = [
         'alumne' => $alumne,
         'curs' => $curs
     ];
-
+     
     $html = view('pdf/matricula_pdf', $data);
-
+   
     $pdf = new \TCPDF();
 
-    $pdf->SetCreator($alumne);
+    $pdf->SetCreator($alumne['Nom_alumne']);
     $pdf->SetAuthor('Caparrella matriculacion ');
     $pdf->SetTitle('Matricula');
     $pdf->SetMargins(15, 15, 15);
@@ -316,7 +312,7 @@ public function pago_post()
 
     $pdf->AddPage();
 
-    $pdf->writeHTML($html, true, false, true, false, '');
+    $pdf->writeHTML($html);
 
     
     $pdf->Output('matricula.pdf', 'D');
@@ -325,22 +321,33 @@ public function pago_post()
 //----------------------------------------------------------------------------
 //Dashboard PRIVAT FOR ADMINS 
 public function Dashborad_view()
-{
+{   $session = session() ; 
     helper('form');
-
+     
     $AlumneModel    = new AlumneModel();
     $CursModel      = new CursModel();
     $matriculaModel = new MatriculaModel();
     $mensajeModel   = new MensajeModel();
     $TandadaModel   = new TandadaModel();
+    $UserModel     = new UserModel() ;  
 
+    
+            $nom = $session->get('name') ; 
+            $email = $session->get('email'); 
+            $role = $session->get('role'); 
     $data = [
         'totalAlumnos'    => $AlumneModel->countAll(),
         'totalCursos'     => $CursModel->countAll(),
         'totalMatriculas' => $matriculaModel->countAll(),
         'totalMensajes'   => $mensajeModel->countAll(),
         'totalTandadas'   => $TandadaModel->countAll(),
-    ];
+        'totalUsers'      => $UserModel->countAll(),
+        'username'       => $nom,
+        'useremail'       =>$email,
+        'role'           =>$role
+    ];   
+
+
 
     return view('privat/dashboard', $data);
 }

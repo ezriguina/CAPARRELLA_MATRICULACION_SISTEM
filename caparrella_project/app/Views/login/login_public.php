@@ -207,20 +207,15 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2 brand-logo text-decoration-none" href="#">
             <img src="<?= base_url('img/logo-removebg-preview.png') ?>" alt="Logo institucional" height="44" class="me-1">
-            <span class="fw-bold brand-text fs-5">Matrícula <span style="color:#1e3a8a;">Inteligente</span></span>
         </a>
-        <div class="d-none d-md-block">
-            <span class="badge bg-light text-dark rounded-pill px-3 py-2 shadow-sm"><i class="bi bi-shield-check"></i> Entorno seguro</span>
-        </div>
+        
     </div>
 </nav>
 
-<!-- CONTENEDOR PRINCIPAL -->
 <div class="container d-flex justify-content-center align-items-center flex-grow-1 py-4 py-md-5">
     <div class="glass-card w-100" style="max-width: 1100px;">
         <div class="row g-0">
             
-            <!-- Panel izquierdo - Bienvenida visual -->
             <div class="col-md-5 hero-side">
                 <img src="<?= base_url('img/logo-removebg-preview.png') ?>" alt="Logo academia">
                 <h4>Bienvenido de nuevo</h4>
@@ -278,7 +273,7 @@
                 </form>   
 
                 <div class="text-center mt-3">
-    <a href="<?= base_url('privat/education') ?>" class="text-decoration-none text-primary fw-semibold">
+    <a href="<?= base_url('privat/Dashboard/Instiut-Caparrella') ?>" class="text-decoration-none text-primary fw-semibold">
         <i class="bi bi-arrow-right-circle me-1"></i> Acceder directamente a la zona privada
     </a>
 </div>

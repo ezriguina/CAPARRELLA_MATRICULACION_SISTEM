@@ -76,30 +76,40 @@ p {
 </div>
 
 <p><strong>Fecha:</strong> <?= date('d/m/Y') ?></p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Matrícula</title>
+</head>
+<body>
 
-<table>
-<tr>
-    <td class="label">Alumno</td>
-    <td><?= esc($alumne['Nom_alumne']) ?></td>
-</tr>
-<tr>
-    <td class="label">Correo</td>
-    <td><?= esc($alumne['correo_alumne']) ?></td>
-</tr>
-<tr>
-    <td class="label">Curso</td>
-    <td><?= esc($curs['Nom_curs']) ?></td>
-</tr>
-<tr>
-    <td class="label">Código curso</td>
-    <td><?= esc($curs['codigo_curs']) ?></td>
-</tr>
-<tr>
-    <td class="label">Precio</td>
-    <td><?= esc($curs['precio']) ?> €</td>
-</tr>
+<h1>Datos del Alumno</h1>
+
+<table border="1" cellpadding="5">
+    <tr><td>Nombre</td><td><?= $alumne['Nom_alumne'] ?></td></tr>
+    <tr><td>DNI</td><td><?= $alumne['Dni_alumne'] ?></td></tr>
+    <tr><td>Email</td><td><?= $alumne['correo_alumne'] ?></td></tr>
+    <tr><td>Teléfono</td><td><?= $alumne['tlf_alumne'] ?></td></tr>
+    <tr><td>Dirección</td><td><?= $alumne['domicili'] ?></td></tr>
+    <tr><td>Población</td><td><?= $alumne['poblacio'] ?></td></tr>
+    <tr><td>Municipio</td><td><?= $alumne['municipi'] ?></td></tr>
+    <tr><td>Código Postal</td><td><?= $alumne['codi_postal'] ?></td></tr>
+    <tr><td>Fecha Nacimiento</td><td><?= $alumne['data_naixement'] ?></td></tr>
 </table>
 
+<br><br>
+
+<h1>Datos del Curso</h1>
+
+<table border="1" cellpadding="5">
+    <tr><td>Nombre curso</td><td><?= $curs['Nom_curs'] ?></td></tr>
+    <tr><td>Código</td><td><?= $curs['codigo_curs'] ?></td></tr>
+    <tr><td>Precio</td><td><?= $curs['precio'] ?> €</td></tr>
+</table>
+
+</body>
+</html>
 <p>Este documento confirma que el alumno ha realizado el proceso de matrícula.</p>
 
 <a class="btn" href="<?= base_url('matricula/pago/pdf')?>" target="_blank">

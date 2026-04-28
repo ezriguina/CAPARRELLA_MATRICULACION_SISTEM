@@ -35,7 +35,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'autentica'     => \App\Filters\Autentica::class, // Registre
-
+        'auth'          => \App\Filters\AuthenFilter::class
     ];
 
     /**

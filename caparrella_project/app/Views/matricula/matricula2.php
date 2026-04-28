@@ -125,13 +125,7 @@ background:#16c172;
 
 </div>
 
-<div class="col-md-6">
 
-<label class="form-label">Código del curso</label>
-
-<input type="text" class="form-control" name="codigo_curs">
-
-</div>
 
 </div>
 
@@ -139,7 +133,7 @@ background:#16c172;
 
 <div class="col-md-6">
 
-<label class="form-label">Tipo matrícula</label>
+<label class="form-label">Tipo matricula</label>
 
 <select class="form-select" name="tipo_matricula">
 
@@ -150,13 +144,6 @@ background:#16c172;
 
 </div>
 
-<div class="col-md-6">
-
-<label class="form-label">Precio matrícula</label>
-
-<input type="number" step="0.01" class="form-control" name="precio">
-
-</div>
 
 </div>
 

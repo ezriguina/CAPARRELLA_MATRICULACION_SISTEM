@@ -135,12 +135,10 @@ color:#4b5563;
 
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar-premium">
 <div class="container">
 <a class="navbar-brand d-flex align-items-center gap-2 text-decoration-none" href="#">
 <img src="<?= base_url('img/logo-removebg-preview.png') ?>" height="40">
-<span class="brand-text">Matrícula Inteligente</span>
 </a>
 </div>
 </nav>
@@ -207,7 +205,7 @@ placeholder="Introduce tu código">
 </form>
 
 <div class="text-center mt-3">
-<a href="<?= base_url('privat/education') ?>" class="text-decoration-none text-primary fw-semibold">
+<a href="<?= base_url('privat/Dashboard/Instiut-Caparrella') ?>" class="text-decoration-none text-primary fw-semibold">
 <i class="bi bi-arrow-right-circle"></i> Acceder directamente a la zona privada
 </a>
 </div>
