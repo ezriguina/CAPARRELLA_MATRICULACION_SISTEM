@@ -135,9 +135,9 @@ $data = [
 ];
 $AlumneModel->insert($data);
  
-
+ 
  $alumne = $AlumneModel->where('Dni_alumne',$dni)->first() ;
-
+    
     $sessionData = [
         'id_alumne' => $alumne['id_alumne'],
     ];
@@ -360,11 +360,27 @@ public function Matricula_list(){
     $TandadaModel = new TandadaModel(); 
 
 
-    $matrciulas=$matriculaModel->paginate(10,'default') ;
-    $alumneNom=$alumneModel->
-    $data['matriculas'] = $matrciulas; 
-    $data['alumne'] = $alumneModel; 
-    $data['curs'] = $cursModel; 
+    $matriculas=$matriculaModel->paginate(10,'default') ; 
+
+    $alumne=$alumneModel->findAll(); 
+    $curs = $cursModel->findAll();  
+
+    foreach ($matriculas as $m) {
+
+        $alumno = $alumneModel->find($m['id_alumne']);
+        $m['Nom_alumne'] = $alumno['Nom_alumne'];
+        
+        $curso = $cursModel->find($m['id_curs']);
+        $m['Nom_curs'] = $curso['Nom_curs'];
+    } 
+
+
+    
+
+    $data['matriculas'] = $matriculas; 
+    $data['alumne'] = $alumne; 
+    $data['curs'] = $curs;  
+
     $data['Tanda'] = $TandadaModel; 
     $data['pager'] = $matriculaModel->pager; 
 

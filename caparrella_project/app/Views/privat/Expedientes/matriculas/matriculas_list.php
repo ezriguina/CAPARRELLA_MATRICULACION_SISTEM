@@ -37,12 +37,10 @@
                     <tbody>
                         <?php foreach ($matriculas as $m): ?>
                         <tr>
-                            <td><?= esc($m['id_matricula']) ?></td>
-
-                            <td><?= esc($m['alumno_nombre'] ?? $m['id_alumne']) ?></td>
-
-                            <td><?= esc($m['curso_nombre'] ?? $m['id_curs']) ?></td>
-
+                            <td><?= esc($m['id_alumne']) ?></td>
+                        
+                            <td><?=  esc($m['id_curs']) ?></td>
+                            
                             <td>
                                 <?php if ($m['estado'] == 1): ?>
                                     <span style="color:green;">Activa</span>
@@ -62,7 +60,6 @@
                             <td><?= esc($m['created_at']) ?></td>
 <td class="text-center">
 
-    <!-- VALIDAR -->
     <?php if ($m['estado'] != 1): ?>
         <a href="<?= base_url('privat/Matriculas/validar/' . esc($m['id_matricula'])) ?>" 
            class="btn btn-sm btn-success">
@@ -93,11 +90,10 @@
             Eliminar
         </button>
     </form>
-
+    
 </td>
                         </tr>
 
-                        <!-- MODAL -->
                         <div id="modal-<?= esc($m['id_matricula']) ?>" 
                             class="w3-modal" 
                             style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
