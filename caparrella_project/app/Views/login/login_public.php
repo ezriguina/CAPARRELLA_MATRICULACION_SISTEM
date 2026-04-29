@@ -202,7 +202,6 @@
 </head>
 <body>
 
-<!-- NAVBAR MEJORADA - SIN AFECTAR FUNCIONALIDAD -->
 <nav class="navbar-premium">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center gap-2 brand-logo text-decoration-none" href="#">

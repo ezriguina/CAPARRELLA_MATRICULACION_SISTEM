@@ -8,7 +8,6 @@ class MatriculaMigration extends Migration
 {
     public function up()
     {
-
         $this->forge->addField([
 
             'id_matricula'=>[
@@ -28,6 +27,12 @@ class MatriculaMigration extends Migration
                 'unsigned'=>true
             ],
 
+            'id_tandada'=>[
+                'type'=>'INT',
+                'unsigned'=>true,
+                'null'=>true
+            ],
+
             'estado'=>[
                 'type'=>'VARCHAR',
                 'constraint'=>50,
@@ -43,10 +48,12 @@ class MatriculaMigration extends Migration
                 'type'=>'DATETIME',
                 'null'=>true
             ],
-             'updated_at' => [
+
+            'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
             ],
+
             'deleted_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -55,6 +62,8 @@ class MatriculaMigration extends Migration
         ]);
 
         $this->forge->addKey('id_matricula',true);
+
+        $this->forge->addKey('id_tandada');
 
         $this->forge->createTable('matricula');
     }

@@ -164,7 +164,8 @@ class UsersController extends BaseController
 
 
     return redirect()->to('privat/Users/list')->with('succes','datos Actualizados') ; 
-    } 
+    }  
+
     public function U_delete($id){
     $session = session(); 
 
@@ -173,16 +174,9 @@ class UsersController extends BaseController
 
     $user = $UsersModel->where('id',$id)->first() ;
     
-    if($user_actual==$user){
     $UsersModel->delete($id) ;
-    }else{ 
      
-        return redirect()->back()->with('Error','No puedes Borrar a ti mismo'); 
-        
-    }
      
-    
-
     return redirect()->back()->with('succes','Usuario eleminiado') ;
 
     }

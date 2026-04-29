@@ -176,21 +176,21 @@ Verifica que dispones de toda la documentación necesaria antes de iniciar el pr
 <div class="form-check">
 <input class="form-check-input" type="checkbox" id="check1" name="check1">
 <label class="form-check-label" for="check1">
-Fotografía del DNI (reverso)
+2 Fotografía del DNI,NIE,PASSAPORTE (frente y reverso)
 </label>
 </div>
 
 <div class="form-check">
 <input class="form-check-input" type="checkbox" id="check2" name="check2">
 <label class="form-check-label" for="check2">
-Documentación de familia numerosa
+Documentación de familia numerosa 
 </label>
 </div>
 
 <div class="form-check">
 <input class="form-check-input" type="checkbox" id="check3" name="check3">
 <label class="form-check-label" for="check3">
-Certificado de discapacidad (si aplica)
+Certificado de discapacidad (en caso de que tienes alguna descapacidad)
 </label>
 </div>
 
