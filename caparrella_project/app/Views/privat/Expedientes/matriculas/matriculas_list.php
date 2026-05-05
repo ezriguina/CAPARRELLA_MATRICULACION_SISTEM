@@ -39,14 +39,19 @@
                             <td><?= esc($m['id_alumne']) ?></td>
                         
                             <td><?=  esc($m['id_curs']) ?> </td>
-                            
+                             
                             <td>
-                                <?php if ($m['estado'] == 1): ?>
-                                    <span style="color:green;">Activa</span>
-                                <?php else: ?>
-                                    <span style="color:orange;">Pendiente</span>
-                                <?php endif; ?>
-                            </td>
+                          <?php if ($m['estado'] == 1): ?>
+                             <span style="color:green;">VALIDADA</span>
+
+                              <?php elseif ($m['estado'] == 2): ?>
+                              <span style="color:red;">CANCELADA</span>
+
+                              <?php else: ?>
+                             <span style="color:orange;">PENDIENTE</span>
+
+                             <?php endif; ?>
+                              </td>
 
                             <td>
                                 <?php if ($m['pagado'] == 1): ?>
@@ -59,15 +64,11 @@
                             <td><?= esc($m['created_at']) ?></td>
 <td class="text-center">
 
-    <?php if ($m['estado'] != 1): ?>
         <a href="<?= base_url('privat/Matriculas/matricula/validar/' . esc($m['id_matricula'])) ?>" 
            class="btn btn-sm btn-success">
             Validar
-        </a> 
-
-    <?php else: ?>
-        <span class="badge bg-success">Validada</span>
-    <?php endif; ?>
+        </a>
+    
 
     <button 
         onclick="document.getElementById('modal-<?= esc($m['id_matricula']) ?>').style.display='block'" 
