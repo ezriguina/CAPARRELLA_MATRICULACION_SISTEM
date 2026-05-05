@@ -254,71 +254,49 @@
     </div>
 </div>
 
-<div class="accordion mt-5" id="accordionTutor">
+div id="bloqueTutor" style="display:none;">
 
-    <div class="accordion-item border-0 shadow-sm rounded-3">
-        
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTutor">
-                 Dades del tutor/a legal (si aplica)
-            </button>
-        </h2>
+<div class="accordion mt-4">
+<div class="accordion-item border-0 shadow-sm rounded-3">
 
-        <div id="collapseTutor" class="accordion-collapse collapse" data-bs-parent="#accordionTutor">
-            
-            <div class="accordion-body">
+<div class="accordion-body">
 
-                <div class="row g-3 mb-3">
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold">Nom</label>
-                        <input type="text" class="form-control form-control-lg" name="tutor_nombre" value="<?= old('tutor_nombre'); ?>">
-                    </div>
+<h5 class="text-secondary mb-3">Dades del tutor legal</h5>
 
-                    <div class="col-md-6">
-                        <label class="form-label fw-semibold">Cognoms</label>
-                        <input type="text" class="form-control form-control-lg" name="tutor_apellidos" value="<?= old('tutor_apellidos'); ?>">
-                    </div>
-                </div>
+<!-- NUEVO CAMPO -->
+<div class="mb-3">
+    <label class="form-label">Tipo de tutor</label>
+    <select class="form-select" name="tipo_tutor">
+        <option value="">Seleccione</option>
+        <option value="padre">Padre</option>
+        <option value="madre">Madre</option>
+        <option value="tutor_legal">Tutor legal</option>
+        <option value="otro">Otro</option>
+    </select>
+</div>
 
-                <div class="row g-3 mb-3">
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">DNI</label>
-                        <input type="text" class="form-control form-control-lg" name="tutor_dni" value="<?= old('tutor_dni'); ?>">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">Telèfon</label>
-                        <input type="tel" class="form-control form-control-lg" name="tutor_telefono" value="<?= old('tutor_telefono'); ?>">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">Email</label>
-                        <input type="email" class="form-control form-control-lg" name="tutor_email" value="<?= old('tutor_email'); ?>">
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label fw-semibold">Direcció</label>
-                    <input type="text" class="form-control form-control-lg" name="tutor_direccion" value="<?= old('tutor_direccion'); ?>">
-                </div>
-
-                <div class="row g-3">
-                    <div class="col-md-8">
-                        <label class="form-label fw-semibold">Ciutat</label>
-                        <input type="text" class="form-control form-control-lg" name="tutor_ciudad" value="<?= old('tutor_ciudad'); ?>">
-                    </div>
-
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">Codi Postal</label>
-                        <input type="text" class="form-control form-control-lg" name="tutor_cp" value="<?= old('tutor_cp'); ?>">
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
+<div class="row g-3 mb-3">
+    <div class="col-md-6">
+        <input type="text" class="form-control" name="tutor_nombre" placeholder="Nombre" value="<?= old('tutor_nombre'); ?>">
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control" name="tutor_apellidos" placeholder="Apellidos" value="<?= old('tutor_apellidos'); ?>">
     </div>
 </div>
+
+<div class="row g-3 mb-3">
+    <div class="col-md-4">
+        <input type="text" class="form-control" name="tutor_dni" placeholder="DNI" value="<?= old('tutor_dni'); ?>">
+    </div>
+    <div class="col-md-4">
+        <input type="tel" class="form-control" name="tutor_telefono" placeholder="Teléfono" value="<?= old('tutor_telefono'); ?>">
+    </div>
+    <div class="col-md-4">
+        <input type="email" class="form-control" name="tutor_email" placeholder="Email" value="<?= old('tutor_email'); ?>">
+    </div>
+</div>
+
+
                 <div class="text-end">
                     <button type="submit" class="btn btn-primary btn-lg px-5 rounded-3">
                         SEGUIENTE
@@ -332,6 +310,30 @@
 
 </body>
 </html>
+<script>
+document.getElementById("fechaNacimiento").addEventListener("change", function () {
+    const fecha = new Date(this.value);
+    const hoy = new Date();
+
+    let edad = hoy.getFullYear() - fecha.getFullYear();
+    const m = hoy.getMonth() - fecha.getMonth();
+
+    if (m < 0 || (m === 0 && hoy.getDate() < fecha.getDate())) {
+        edad--;
+    }
+
+    const bloque = document.getElementById("bloqueTutor");
+
+    if (edad < 18) {
+        bloque.style.display = "block";
+    } else {
+        bloque.style.display = "none";
+    }
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 </body>

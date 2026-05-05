@@ -24,7 +24,6 @@
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>ID</th>
                             <th>Alumno</th>
                             <th>Curso</th>
                             <th>Estado</th>
@@ -39,7 +38,7 @@
                         <tr>
                             <td><?= esc($m['id_alumne']) ?></td>
                         
-                            <td><?=  esc($m['id_curs']) ?></td>
+                            <td><?=  esc($m['id_curs']) ?> </td>
                             
                             <td>
                                 <?php if ($m['estado'] == 1): ?>
@@ -61,10 +60,11 @@
 <td class="text-center">
 
     <?php if ($m['estado'] != 1): ?>
-        <a href="<?= base_url('privat/Matriculas/validar/' . esc($m['id_matricula'])) ?>" 
+        <a href="<?= base_url('privat/Matriculas/matricula/validar/' . esc($m['id_matricula'])) ?>" 
            class="btn btn-sm btn-success">
             Validar
-        </a>
+        </a> 
+
     <?php else: ?>
         <span class="badge bg-success">Validada</span>
     <?php endif; ?>

@@ -67,7 +67,7 @@ class MatriculaMigration extends Migration
 
         $this->forge->createTable('matricula');
     }
-
+     
     public function down()
     {
         $this->forge->dropTable('matricula');

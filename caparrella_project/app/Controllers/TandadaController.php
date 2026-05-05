@@ -52,7 +52,6 @@ class TandadaController extends BaseController
    $validatio_rules = [
     'nom'   => 'required' ,
     'estado' => 'required' ,
-    'curso' => 'required',
     'fecha_inicio' => 'required',
     'fecha_fin' => 'required'
    ];
@@ -103,7 +102,6 @@ public function T_edit_post($id)
     $rules = [
         'nom'           => 'required',
         'estado'        => 'required',
-        'curso'         => 'required',
         'fecha_inicio'  => 'required',
         'fecha_fin'     => 'required'
     ];

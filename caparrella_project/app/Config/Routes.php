@@ -92,7 +92,9 @@ $routes->post('matricula/datos_alumne','MatriculaController::m_alumne_post');
 $routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');
 $routes->post('matricula/datos_pagament','MatriculaController::m_pagament_post'); 
 //---------------------------------------------------------------------------------------------------------
-//Tandada y Dash 
+//Tandada y Dash  
+
+
 $routes->get('privat/Dashboard/Instiut-Caparrella','MatriculaController::Dashborad_view',['filter' => 'auth']);
 $routes->get('privat/Tandada','TandadaController::Tanda_view',['filter' => 'auth']); 
 $routes->get('privat/Tandada/create','TandadaController::T_create',['filter' => 'auth']); 
@@ -113,6 +115,15 @@ $routes->post('privat/Users/edit/(:segment)','UsersController::U_edit_post/$1',[
 $routes->post('privat/Users/eliminar/(:segment)','UsersController::U_delete/$1',['filter' => 'auth']);
 //matriculas 
 $routes->get('privat/Matriculas/listado','MatriculaController::Matricula_list') ; 
+$routes->get('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula'); 
+$routes->post('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula_post'); 
+$routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula/$1'); 
+$routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula_post/$1'); 
+
+//validar Alumnos 
+$routes->get('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar/$1') ; 
+$routes->post('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar_post/$1') ; 
+
 
 
 //Auth  

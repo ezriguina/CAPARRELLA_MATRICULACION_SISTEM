@@ -181,9 +181,10 @@ return redirect()->to('matricula/datos_curs');
         $cursModel = new CursModel(); 
         
         helper('form');
+        $data ['curso'] = $cursModel->findAll();
+        return view('matricula/matricula2',$data);
+    } 
 
-        return view('matricula/matricula2');
-    }
 
 public function m_curs_post(){
     $matriculaModel = new MatriculaModel(); 
@@ -193,6 +194,7 @@ helper('form');
 $curso = $this->request->getPost('Nom_curs');
 $validation = [
 'Nom_curs' => 'required',
+
 ];
 
 if(!$this->validate($validation)){
