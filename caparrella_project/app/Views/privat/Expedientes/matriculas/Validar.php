@@ -28,6 +28,14 @@
                 <p><strong>Población:</strong> <?= esc($alumno['poblacio']) ?></p>
                 <p><strong>Código postal:</strong> <?= esc($alumno['codi_postal']) ?></p>
                 <p><strong>TSI:</strong> <?= esc($alumno['tsi']) ?></p>
+
+                <br>
+                <label for="">Foto Documento 1 </label>
+                <img src="<?= base_url('img/'.esc($alumno['foto_documento_frente'])) ?>" alt="">
+                <br>
+                <label for="">Foto Documento 2 </label>
+                <img src="<?= base_url('img/'.esc($alumno['foto_documento_reverso'])) ?>" alt="">
+                
             </div>
 
         </div>
@@ -94,7 +102,7 @@
 
             <form method="post" action="<?= base_url('privat/Matriculas/matricula/validar/'.$matricula['id_matricula']) ?>">
                 <?= csrf_field() ?>
-
+              
                 <button name="accion" value="validar" class="btn btn-success me-2">
                      Validar
                 </button>

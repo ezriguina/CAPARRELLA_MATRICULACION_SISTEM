@@ -94,9 +94,24 @@ class MatriculaController extends BaseController
      $codi_Postal = $this->request->getPost('codi_postal');
      $tlf_alumne = $this->request->getPost('tlf_alumne');
      $correo = $this->request->getPost('email_alumne');
-     
+     $dni_front = $this->request->getFile('dni_front'); 
+     $dni_back = $this->request->getFile('dni_back'); 
+     $dniFrontName = null;
+$dniBackName = null;
+
+if ($dni_front && $dni_front->isValid() && !$dni_front->hasMoved()) {
+    $dniFrontName = $dni_front->getRandomName();
+    $dni_front->move('uploads/', $dniFrontName);
+}
+
+if ($dni_back && $dni_back->isValid() && !$dni_back->hasMoved()) {
+    $dniBackName = $dni_back->getRandomName();
+    $dni_back->move('uploads/', $dniBackName);
+}
+
+ 
 $tutor_tipo       =$this->request->getPost('tipo_tutor');   
- $tutor_nombre     = $this->request->getPost('tutor_nombre');
+$tutor_nombre    = $this->request->getPost('tutor_nombre');
 $tutor_apellidos  = $this->request->getPost('tutor_apellidos');
 $tutor_dni        = $this->request->getPost('tutor_dni');
 $tutor_telefono   = $this->request->getPost('tutor_telefono');
@@ -129,8 +144,9 @@ if (!empty($tutor_nombre)) {
 'tlf_familiar' => 'required',
 'municipi' => 'required|min_length[2]|max_length[100]',
 'codi_postal' => 'required|regex_match[/^[0-9]{5}$/]',
-'email_alumne' => 'required|valid_email|max_length[150]'
-
+'email_alumne' => 'required|valid_email|max_length[150]',
+'dni_front' => 'required',
+'dni_back'  => 'required',
 ];
 
 
@@ -155,8 +171,12 @@ $data = [
 'municipi' => $this->request->getPost('municipi'),
 'codi_postal' => $this->request->getPost('codi_postal'),
 'tlf_alumne' => $this->request->getPost('tlf_alumne'),
-'id_tutor'   => $tutor 
+'id_tutor'   => $tutor ,
+'foto_documento_frente'  => $dniFrontName ,
+'foto_documento_reverso'  =>$dniBackName
+
 ];
+
 
 $AlumneModel->insert($data);
  
@@ -171,7 +191,7 @@ $AlumneModel->insert($data);
 
 
 return redirect()->to('matricula/datos_curs');
-
+  
 }
 
     }
@@ -392,7 +412,8 @@ public function Matricula_list(){
         $m['Nom_curs'] = $curso['Nom_curs'];
     } else {
         $m['Nom_curs'] = 'Sin curso';
-    }
+    } 
+
 }
     
     $data['matriculas'] = $matriculas; 

@@ -20,7 +20,7 @@ class AlumneModel extends Model
         'tlf_familiar',
         'municipi',
         'codi_postal',
-        'tlf_alumne','id_tutor','updated_at','deleted_at'];
+        'tlf_alumne','id_tutor','foto_documento_frente','foto_documento_reverso','updated_at','deleted_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -52,5 +52,5 @@ class AlumneModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = []; 
-    
+
 }
