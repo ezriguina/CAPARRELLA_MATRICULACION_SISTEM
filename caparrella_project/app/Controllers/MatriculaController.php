@@ -255,7 +255,7 @@ public function pago_view()
 
 
 public function pago_post()
-{
+{   helper('form'); 
     $session = session();
 
     $matriculaModel = new MatriculaModel();
@@ -265,8 +265,16 @@ public function pago_post()
     }
 
     $id_alumne = $session->get('id_alumne');
-    $id_curs = $session->get('id_curs') ;
+    $id_curs = $session->get('id_curs') ; 
+    $comp= $this->request->getFile('comprov_pago') ; 
 
+    $validation=[
+    'comprovante_pago' => $comp
+    ]; 
+
+    if(!$this->validate($validation)){
+        return redirect()->back()->with('error',$this->validator) ;
+    }
     $data = [
 
         'id_alumne' => $id_alumne,

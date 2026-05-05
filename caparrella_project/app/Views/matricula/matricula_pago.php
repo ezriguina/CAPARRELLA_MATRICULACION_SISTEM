@@ -264,8 +264,11 @@
                         
                         </div> <br>
                         <label for="">Subir archivo del comprovante de la paga </label>
-                        <input type="file" >
-
+                        <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <input type="file" class="form-control form-control-lg" name="comprov_pago">
+                    </div>
+                </div>
                     </div>
 
                 </div>
@@ -278,7 +281,7 @@
       <form action="<?= base_url('matricula/pago')?>" method="post">
 
 <?= csrf_field() ?>
-
+<?= validation_errors(); ?>
 <div class="d-grid mt-4">
 
 <button class="btn btn-success btn-lg">

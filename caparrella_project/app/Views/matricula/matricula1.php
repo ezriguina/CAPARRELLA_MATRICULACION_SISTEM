@@ -172,7 +172,6 @@
                     </div>
                 </div>
 
-                <!-- DNI IMÁGENES -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-card-image"></i> Documents DNI
                 </h6>
