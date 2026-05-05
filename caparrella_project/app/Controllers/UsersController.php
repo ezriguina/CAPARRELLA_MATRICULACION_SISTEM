@@ -177,7 +177,7 @@ class UsersController extends BaseController
     $UsersModel->delete($id) ;
      
      
-    return redirect()->back()->with('succes','Usuario eleminiado') ;
+    return redirect()->to('privat/Users/list')->with('succes','Usuario eleminiado') ;
 
     }
 }

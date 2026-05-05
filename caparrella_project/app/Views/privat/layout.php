@@ -77,14 +77,14 @@
     <ul class="nav nav-pills flex-column mb-auto">
       
       <li class="nav-item mb-2">
-        <a class="nav-link" href="<?= base_url('privat/education') ?>">
-          <i class="bi bi-diagram-3"></i> Estructuras
+        <a class="nav-link" href="<?= base_url('privat/cursos') ?>">
+          <i class="bi bi-diagram-3"></i> Gestionar Cursos 
         </a>
       </li>
 
       <li class="nav-item mb-2">
         <a class="nav-link" href="<?= base_url('privat/historial') ?>">
-          <i class="bi bi-clock-history"></i> Historial
+          <i class="bi bi-clock-history"></i> Gestionar Asignaturas 
         </a>
       </li>
 
@@ -113,11 +113,27 @@
       </li>
 
       <li class="nav-item mb-2">
+        <a class="nav-link" href="<?= base_url('privat/mensatges') ?>">
+          <i class="bi bi-cash-coin"></i>Gestion Reducciones 
+        </a>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="<?= base_url('privat/mensatges') ?>">
+          <i class="bi bi-box-seam"></i>Gestion Bonificaciones
+        </a>
+      </li>
+
+      <li class="nav-item mb-2">
         <a class="nav-link" href="<?= base_url('privat/Users/list') ?>">
           <i class="bi bi-people"></i> Gestionar Usuarios
         </a>
       </li>
-
+      <li class="nav-item mb-2">
+        <a class="nav-link" href="<?= base_url('Admin/Auth/logout') ?>">
+          <i class="bi bi-arrow-right-square"></i> Tanca Sessio 
+        </a>
+      </li>
     </ul>
 
     <div class="mt-auto small text-center text-secondary">

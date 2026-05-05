@@ -71,17 +71,19 @@ class MatriculaController extends BaseController
 
     public function m_alumne_view(){
     helper('form') ;
-
+    
     return view('matricula/matricula1');
 
     }
+
     public function m_alumne_post(){
       $SESSION=session();
       helper('form');
       $AlumneModel = new AlumneModel();
       $TutorModel = new TutorModel(); 
 
-     $nom_cognom = $this->request->getPost('nom_complet');
+     $nom_alumne = $this->request->getPost('nom_alumne');
+     $cognom_alumne = $this->request->getPost('cognom_alumne');
      $dni =$this->request->getPost('dni');
      $sanitat = $this->request->getPost('TSI');
      $poblacio = $this->request->getPost('Poblacio');
@@ -92,14 +94,34 @@ class MatriculaController extends BaseController
      $codi_Postal = $this->request->getPost('codi_postal');
      $tlf_alumne = $this->request->getPost('tlf_alumne');
      $correo = $this->request->getPost('email_alumne');
+     
+$tutor_tipo       =$this->request->getPost('tipo_tutor');   
+ $tutor_nombre     = $this->request->getPost('tutor_nombre');
+$tutor_apellidos  = $this->request->getPost('tutor_apellidos');
+$tutor_dni        = $this->request->getPost('tutor_dni');
+$tutor_telefono   = $this->request->getPost('tutor_telefono');
+$tutor_email      = $this->request->getPost('tutor_email');
 
-    
-    
 
+if (!empty($tutor_nombre)) {
+    
+    $tutorData = [
+        'tipo_tutor'    =>$tutor_tipo,
+        'nombre'        => $tutor_nombre,
+        'apellidos'     => $tutor_apellidos,
+        'dni'           => $tutor_dni,
+        'telefono'      => $tutor_telefono,
+        'email'         => $tutor_email,
+        'alumno_id'     => $SESSION->get('id_alumne')
+    ];
+     
+    $tutor=$TutorModel->insert($tutorData);
+    
     $validation_rules = [
 
-'nom_complet' => 'required|min_length[3]|max_length[100]',
-'dni' => 'required|regex_match[/^[0-9]{8}[A-Za-z]$/]',
+'nom_alumne' => 'required|min_length[3]|max_length[100]',
+'cognom_alumne' => 'required|min_length[3]|max_length[100]',
+'dni' => 'required|regex_match[/^([0-9]{8}[A-Za-z]|[XYZ][0-9]{7}[A-Za-z]|[A-Za-z0-9]{6,9})$/]',
 'TSI' => 'required|min_length[6]|max_length[20]',
 'Poblacio' => 'required|min_length[2]|max_length[100]',
 'data_nacimiento' => 'required|valid_date[Y-m-d]',
@@ -119,7 +141,9 @@ return redirect()->to('matricula/datos_alumne')->withInput()->with('errors', $th
 }
 $data = [
 
-'Nom_alumne' => $this->request->getPost('nom_complet'),
+'Nom_alumne' => $this->request->getPost('nom_alumne'),
+'Cognom_alumne' => $this->request->getPost('cognom_alumne'),
+
 'Dni_alumne' => $this->request->getPost('dni'),
 'correo_alumne' => $this->request->getPost('email_alumne'),
 
@@ -130,9 +154,10 @@ $data = [
 'tlf_familiar' => $this->request->getPost('tlf_familiar'),
 'municipi' => $this->request->getPost('municipi'),
 'codi_postal' => $this->request->getPost('codi_postal'),
-'tlf_alumne' => $this->request->getPost('tlf_alumne')
-
+'tlf_alumne' => $this->request->getPost('tlf_alumne'),
+'id_tutor'   => $tutor 
 ];
+
 $AlumneModel->insert($data);
  
  
@@ -144,32 +169,6 @@ $AlumneModel->insert($data);
     $SESSION->set($sessionData);
 
 
-    
- $tutor_nombre     = $this->request->getPost('tutor_nombre');
-$tutor_apellidos  = $this->request->getPost('tutor_apellidos');
-$tutor_dni        = $this->request->getPost('tutor_dni');
-$tutor_telefono   = $this->request->getPost('tutor_telefono');
-$tutor_email      = $this->request->getPost('tutor_email');
-$tutor_direccion  = $this->request->getPost('tutor_direccion');
-$tutor_ciudad     = $this->request->getPost('tutor_ciudad');
-$tutor_cp         = $this->request->getPost('tutor_cp');
-
-
-if (!empty($tutor_nombre)) {
-
-    $tutorData = [
-        'nombre'        => $tutor_nombre,
-        'apellidos'     => $tutor_apellidos,
-        'dni'           => $tutor_dni,
-        'telefono'      => $tutor_telefono,
-        'email'         => $tutor_email,
-        'direccion'     => $tutor_direccion,
-        'ciudad'        => $tutor_ciudad,
-        'codigo_postal' => $tutor_cp,
-        'alumno_id'     => $SESSION->get('id_alumne')
-    ];
-
-    $TutorModel->insert($tutorData);
 
 return redirect()->to('matricula/datos_curs');
 
@@ -272,9 +271,10 @@ public function pago_post()
     'comprovante_pago' => $comp
     ]; 
 
-    if(!$this->validate($validation)){
+    /*if(!$this->validate($validation)){
         return redirect()->back()->with('error',$this->validator) ;
-    }
+    }*/
+
     $data = [
 
         'id_alumne' => $id_alumne,
@@ -362,7 +362,8 @@ public function Dashborad_view()
     return view('privat/dashboard', $data);
 }  
 
-public function Matricula_list(){
+public function Matricula_list(){ 
+
     helper('form') ;
     $matriculaModel = new MatriculaModel(); 
     $alumneModel = new AlumneModel() ; 
@@ -375,18 +376,25 @@ public function Matricula_list(){
     $alumne=$alumneModel->findAll(); 
     $curs = $cursModel->findAll();  
 
-    foreach ($matriculas as $m) {
+    foreach ($matriculas as &$m) {
 
-        $alumno = $alumneModel->find($m['id_alumne']);
+    $alumno = $alumneModel->find($m['id_alumne']);
+
+    if ($alumno) {
         $m['Nom_alumne'] = $alumno['Nom_alumne'];
-        
-        $curso = $cursModel->find($m['id_curs']);
+    } else {
+        $m['Nom_alumne'] = 'Sin alumno';
+    }
+
+    $curso = $cursModel->find($m['id_curs']);
+
+    if ($curso) {
         $m['Nom_curs'] = $curso['Nom_curs'];
-    } 
-
-
+    } else {
+        $m['Nom_curs'] = 'Sin curso';
+    }
+}
     
-
     $data['matriculas'] = $matriculas; 
     $data['alumne'] = $alumne; 
     $data['curs'] = $curs;  
@@ -440,7 +448,7 @@ public function Matricula_validar_post($id)
     } elseif ($accion == 'denegar') {
         $estado = 2;
     } else {
-        return redirect()->back()->with('error', 'Acción no válida');
+        return redirect()->back()->with('error', 'Accion no valida');
     }
 
     $matriculaModel->update($id, [

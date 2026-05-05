@@ -92,6 +92,17 @@ $routes->post('matricula/datos_alumne','MatriculaController::m_alumne_post');
 $routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');
 $routes->post('matricula/datos_pagament','MatriculaController::m_pagament_post'); 
 //---------------------------------------------------------------------------------------------------------
+//crud Cursos  
+
+$routes->get('privat/cursos', 'CursController::index');
+$routes->get('privat/cursos/create', 'CursController::create');
+$routes->post('privat/cursos/store', 'CursController::store');
+
+$routes->get('privat/cursos/edit/(:num)', 'CursController::edit/$1');
+$routes->post('privat/cursos/update/(:num)', 'CursController::update/$1');
+
+$routes->get('privat/cursos/delete/(:num)', 'CursController::delete/$1');
+
 //Tandada y Dash  
 
 

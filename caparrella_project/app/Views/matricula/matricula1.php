@@ -137,15 +137,16 @@
 
             <div class="accordion-body">
 
-                <!-- DATOS BÁSICOS -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-person"></i> Informació bàsica
                 </h6>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-8">
-                        <label class="form-label fw-semibold">Cognoms i nom</label>
-                        <input type="text" class="form-control form-control-lg" name="nom_complet" value="<?= old('nom_complet'); ?>">
+                        <label class="form-label fw-semibold">Cognoms</label>
+                        <input type="text" class="form-control form-control-lg" name="cognom_alumne" value="<?= old('cognom_alumne'); ?>"><br>
+                        <label class="form-label fw-semibold">Nom</label>
+                        <input type="text" class="form-control form-control-lg" name="nom_alumne" value="<?= old('nom_alumne'); ?>">  
                     </div>
                     <div class="col-md-4">
                         <label class="form-label fw-semibold">DNI</label>
@@ -153,7 +154,6 @@
                     </div>
                 </div>
 
-                <!-- SISTEMA SANITARIO -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-heart-pulse"></i> Sistema sanitari
                 </h6>
@@ -196,7 +196,6 @@
                     </div>
                 </div>
 
-                <!-- DATOS PERSONALES -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-calendar"></i> Dades personals
                 </h6>
@@ -210,7 +209,6 @@
                     </div>
                 </div>
 
-                <!-- DIRECCIÓN -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-house"></i> Domicili
                 </h6>
@@ -233,7 +231,6 @@
                     </div>
                 </div>
 
-                <!-- CONTACTO -->
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-telephone"></i> Contacte
                 </h6>
@@ -253,8 +250,6 @@
     </div>
 </div>
 
-div id="bloqueTutor" style="display:none;">
-
 <div class="accordion mt-4">
 <div class="accordion-item border-0 shadow-sm rounded-3">
 
@@ -262,7 +257,6 @@ div id="bloqueTutor" style="display:none;">
 
 <h5 class="text-secondary mb-3">Dades del tutor legal</h5>
 
-<!-- NUEVO CAMPO -->
 <div class="mb-3">
     <label class="form-label">Tipo de tutor</label>
     <select class="form-select" name="tipo_tutor">

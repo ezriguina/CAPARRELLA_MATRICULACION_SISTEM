@@ -62,13 +62,13 @@
                             </td>
 
                             <td><?= esc($m['created_at']) ?></td>
-<td class="text-center">
+         <td class="text-center">
 
         <a href="<?= base_url('privat/Matriculas/matricula/validar/' . esc($m['id_matricula'])) ?>" 
            class="btn btn-sm btn-success">
             Validar
         </a>
-    
+        
 
     <button 
         onclick="document.getElementById('modal-<?= esc($m['id_matricula']) ?>').style.display='block'" 

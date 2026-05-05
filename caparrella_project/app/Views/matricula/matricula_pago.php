@@ -281,7 +281,7 @@
       <form action="<?= base_url('matricula/pago')?>" method="post">
 
 <?= csrf_field() ?>
-<?= validation_errors(); ?>
+
 <div class="d-grid mt-4">
 
 <button class="btn btn-success btn-lg">

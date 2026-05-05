@@ -13,14 +13,14 @@ class AlumneModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'Nom_alumne','Dni_alumne','Pass_login','correo_alumne','created_at','tsi',
+        'Nom_alumne','Cognom_alumne','Dni_alumne','Pass_login','correo_alumne','created_at','tsi',
         'poblacio',
         'data_naixement',
         'domicili',
         'tlf_familiar',
         'municipi',
         'codi_postal',
-        'tlf_alumne','updated_at','deleted_at'];
+        'tlf_alumne','id_tutor','updated_at','deleted_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -28,8 +28,9 @@ class AlumneModel extends Model
     protected array $casts = [];
     protected array $castHandlers = [];
 
-    // Dates
-    protected $useTimestamps = false;
+    // Dates 
+
+    protected $useTimestamps =  true;
     protected $dateFormat    = 'datetime';
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
@@ -40,7 +41,7 @@ class AlumneModel extends Model
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
-
+    
     // Callbacks
     protected $allowCallbacks = true;
     protected $beforeInsert   = [];
@@ -50,5 +51,6 @@ class AlumneModel extends Model
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
-    protected $afterDelete    = [];
+    protected $afterDelete    = []; 
+    
 }

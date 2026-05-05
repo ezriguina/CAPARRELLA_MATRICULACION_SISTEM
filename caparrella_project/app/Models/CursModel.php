@@ -5,7 +5,7 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class CursModel extends Model
-{
+{   
     protected $table            = 'curs';
     protected $primaryKey       = 'id_curs';
     protected $useAutoIncrement = true;
