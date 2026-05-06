@@ -69,7 +69,6 @@
 <div class="container py-5">
     <div class="card shadow-lg border-0 rounded-4">
 
-        <!-- STEPPER -->
         <div class="stepper-wrapper mb-5">
             <div class="step completed">
                 <div class="step-circle">1</div>

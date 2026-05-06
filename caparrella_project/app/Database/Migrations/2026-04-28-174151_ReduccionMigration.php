@@ -24,8 +24,13 @@ class ReduccionMigration extends Migration
             'precio' => [
                 'type'       => 'DECIMAL',
                 'constraint' => '10,2',
-                'null'       => false,
                 'default'    => 0.00,
+            ],
+
+            'documento' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => true,
             ],
 
             'created_at' => [
@@ -43,7 +48,7 @@ class ReduccionMigration extends Migration
                 'null' => true,
             ],
         ]);
-
+        
         $this->forge->addKey('id_reduccion', true);
         $this->forge->createTable('reducciones');
     }

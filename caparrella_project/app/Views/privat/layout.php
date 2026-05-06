@@ -113,13 +113,13 @@
       </li>
 
       <li class="nav-item mb-2">
-        <a class="nav-link" href="<?= base_url('privat/mensatges') ?>">
+        <a class="nav-link" href="<?= base_url('') ?>">
           <i class="bi bi-cash-coin"></i>Gestion Reducciones 
         </a>
       </li>
-
+      
       <li class="nav-item mb-2">
-        <a class="nav-link" href="<?= base_url('privat/mensatges') ?>">
+        <a class="nav-link" href="<?= base_url('privat/Bonificaciones') ?>">
           <i class="bi bi-box-seam"></i>Gestion Bonificaciones
         </a>
       </li>

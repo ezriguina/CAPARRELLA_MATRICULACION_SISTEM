@@ -51,7 +51,6 @@ class BonificacionMigration extends Migration
 
         $this->forge->addKey('id_bonificacion', true);
 
-        // Índice para curso (recomendado)
         $this->forge->addKey('id_curso');
 
         $this->forge->createTable('bonificaciones');

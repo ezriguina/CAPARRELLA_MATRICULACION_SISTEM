@@ -130,12 +130,39 @@ $routes->get('privat/Matriculas/Manual/crear','MatriculaController::crear_matric
 $routes->post('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula_post'); 
 $routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula/$1'); 
 $routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula_post/$1'); 
+//Buscador 
+$routes->get('privat/Matriculas/searchMatricula','MatriculaController::search');
+
 
 //validar Alumnos 
 $routes->get('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar/$1') ; 
 $routes->post('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar_post/$1') ; 
+//
+// BONIFICACIONES
+$routes->get('privat/Bonificaciones', 'BonificacionesController::bonificaciones_view');
 
+$routes->get('privat/Bonificaciones/create', 'BonificacionesController::B_create');
+$routes->post('privat/Bonificaciones/post', 'BonificacionesController::B_post');
 
+$routes->get('privat/Bonificaciones/edit/(:num)', 'BonificacionesController::B_edit/$1');
+$routes->post('privat/Bonificaciones/update/(:num)', 'BonificacionesController::B_edit_post/$1');
+
+$routes->get('privat/Bonificaciones/delete/(:num)', 'BonificacionesController::B_delete/$1');
+
+$routes->get('privat/Bonificaciones/view/(:num)', 'BonificacionesController::B_view/$1');
+
+// REDUCCIONES
+$routes->get('privat/Reducciones', 'ReduccionesController::reducciones_view');
+
+$routes->get('privat/Reducciones/create', 'ReduccionesController::R_create');
+$routes->post('privat/Reducciones/post', 'ReduccionesController::R_post');
+
+$routes->get('privat/Reducciones/edit/(:num)', 'ReduccionesController::R_edit/$1');
+$routes->post('privat/Reducciones/update/(:num)', 'ReduccionesController::R_edit_post/$1');
+
+$routes->get('privat/Reducciones/delete/(:num)', 'ReduccionesController::R_delete/$1');
+
+$routes->get('privat/Reducciones/view/(:num)', 'ReduccionesController::R_view/$1');
 
 //Auth  
          

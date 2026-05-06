@@ -16,6 +16,53 @@
             <i class="fa fa-plus me-1"></i> Nueva Matrícula
         </a>
     </div>
+    <div class="card mb-3 shadow-sm border-0">
+        <div class="col-md-6">
+        <form method="get" action="<?= base_url('privat/Matriculas/searchMatricula') ?>">
+            <input type="text" name="keyword" class="form-control"
+                   placeholder="Buscar alumno..."
+                   value="<?= esc($keyword ?? '') ?>">
+        </form>
+    </div>
+    <div class="card-body">
+
+        <form method="get" class="row g-3 align-items-end">
+
+            <div class="col-md-4">
+                   <label for="id_curs">Filtrar per Curs</label>
+    <select id="id_curs" name="id_curs"
+        class="w3-select w3-border w3-margin-bottom"
+        onchange="document.getElementById('filtrarForm').submit()">
+
+        <option value="" <?= empty($cursoSeleccionado) ? 'selected' : '' ?>>
+            Tots els cursos
+        </option>
+
+        <?php foreach ($curs as $c): ?>
+            <option value="<?= $c['id_curs'] ?>"
+                <?= ($cursoSeleccionado == $c['id_curs']) ? 'selected' : '' ?>>
+                <?= esc($c['Nom_curs']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+            </div>
+
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    Filtrar
+                </button>
+            </div>
+
+            <div class="col-md-3">
+                <a href="<?= base_url('privat/Matriculas/listado') ?>" class="btn btn-secondary w-100">
+                    Limpiar
+                </a>
+            </div>
+
+        </form>  
+
+    </div>
+</div>
     
     <div class="card shadow-sm border-0">
         <div class="card-body p-0">
@@ -36,9 +83,9 @@
                     <tbody>
                         <?php foreach ($matriculas as $m): ?>
                         <tr>
-                            <td><?= esc($m['id_alumne']) ?></td>
+                            <td><?= esc($m['Nom_alumne']) ?> </td>
                         
-                            <td><?=  esc($m['id_curs']) ?> </td>
+                            <td><?=  esc($m['Nom_curs']) ?> </td>
                              
                             <td>
                           <?php if ($m['estado'] == 1): ?>

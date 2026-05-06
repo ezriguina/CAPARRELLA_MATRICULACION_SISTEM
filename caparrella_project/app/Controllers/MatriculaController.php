@@ -94,22 +94,10 @@ class MatriculaController extends BaseController
      $codi_Postal = $this->request->getPost('codi_postal');
      $tlf_alumne = $this->request->getPost('tlf_alumne');
      $correo = $this->request->getPost('email_alumne');
-     $dni_front = $this->request->getFile('dni_front'); 
-     $dni_back = $this->request->getFile('dni_back'); 
-     
-     $dniFrontName = null;
-     $dniBackName = null;
+     $dni_front = $this->request->getFile('dni_f'); 
+     $dni_back = $this->request->getFile('dni_b'); 
 
-if ($dni_front && $dni_front->isValid() && !$dni_front->hasMoved()) {
-    $dniFrontName = $dni_front->getRandomName();
-    $dni_front->move(FCPATH.'uploads', $dniFrontName);
-}
-
-if ($dni_back && $dni_back->isValid() && !$dni_back->hasMoved()) {
-    $dniBackName = $dni_back->getRandomName();
-    $dni_back->move(FCPATH.'uploads', $dniBackName);
-}
-
+  
 
  
 $tutor_tipo       =$this->request->getPost('tipo_tutor');   
@@ -120,20 +108,7 @@ $tutor_telefono   = $this->request->getPost('tutor_telefono');
 $tutor_email      = $this->request->getPost('tutor_email');
 
 
-if (!empty($tutor_nombre)) {
-    
-    $tutorData = [
-        'tipo_tutor'    =>$tutor_tipo,
-        'nombre'        => $tutor_nombre,
-        'apellidos'     => $tutor_apellidos,
-        'dni'           => $tutor_dni,
-        'telefono'      => $tutor_telefono,
-        'email'         => $tutor_email,
-        'alumno_id'     => $SESSION->get('id_alumne')
-    ];
-     
-    $tutor=$TutorModel->insert($tutorData);
-    
+
     $validation_rules = [
 
 'nom_alumne' => 'required|min_length[3]|max_length[100]',
@@ -147,16 +122,46 @@ if (!empty($tutor_nombre)) {
 'municipi' => 'required|min_length[2]|max_length[100]',
 'codi_postal' => 'required|regex_match[/^[0-9]{5}$/]',
 'email_alumne' => 'required|valid_email|max_length[150]',
-'dni_front' => 'required',
-'dni_back'  => 'required',
+'dni_f' => 'uploaded[dni_f]',
+'dni_b' => 'uploaded[dni_b]',
 ];
 
 
 if (!$this->validate($validation_rules)) {
 
-return redirect()->to('matricula/datos_alumne')->withInput()->with('errors', $this->validator);
+return redirect()->to('matricula/datos_alumne')->withInput()->with('errors', $validation_rules);
 
 }
+     $dniFrontName = null;
+     $dniBackName = null;
+
+if ($dni_front && $dni_front->isValid() && !$dni_front->hasMoved()) {
+    $dniFrontName = $dni_front->getRandomName();
+    $dni_front->move(FCPATH.'uploads/', $dniFrontName);
+}
+
+if ($dni_back && $dni_back->isValid() && !$dni_back->hasMoved()) {
+    $dniBackName = $dni_back->getRandomName();
+    $dni_back->move(FCPATH.'uploads/', $dniBackName);
+}
+//datos tutor 
+$tutor = null;
+
+if (!empty($tutor_nombre)) {
+    $tutorData = [
+        'tipo_tutor' => $tutor_tipo,
+        'nombre' => $tutor_nombre,
+        'apellidos' => $tutor_apellidos,
+        'dni' => $tutor_dni,
+        'telefono' => $tutor_telefono,
+        'email' => $tutor_email,
+        'alumno_id' => null 
+    ];
+
+    $tutor = $TutorModel->insert($tutorData);
+}
+   
+
 $data = [
 
 'Nom_alumne' => $this->request->getPost('nom_alumne'),
@@ -194,7 +199,7 @@ $AlumneModel->insert($data);
 
 return redirect()->to('matricula/datos_curs');
   
-}
+
 
     }
 
@@ -391,12 +396,22 @@ public function Matricula_list(){
     $alumneModel = new AlumneModel() ; 
     $cursModel = new CursModel() ; 
     $TandadaModel = new TandadaModel(); 
-
+   
 
     $matriculas=$matriculaModel->paginate(10,'default') ; 
 
     $alumne=$alumneModel->findAll(); 
     $curs = $cursModel->findAll();  
+     $cursoSeleccionado = $this->request->getGet('id_curs') ?? '';
+    $busquedaAlumno = $this->request->getGet('alumno') ?? '';
+
+    if (!empty($cursoSeleccionado)) {
+        $matriculaModel->where('id_curs', $cursoSeleccionado);
+    }
+
+    $matriculas = $matriculaModel
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10, 'default');
 
     foreach ($matriculas as &$m) {
 
@@ -421,7 +436,7 @@ public function Matricula_list(){
     $data['matriculas'] = $matriculas; 
     $data['alumne'] = $alumne; 
     $data['curs'] = $curs;  
-
+    $data['cursoSeleccionado'] = $cursoSeleccionado ;
     $data['Tanda'] = $TandadaModel; 
     $data['pager'] = $matriculaModel->pager; 
 
@@ -479,6 +494,58 @@ public function Matricula_validar_post($id)
     ]);
 
     return redirect()->to(base_url('privat/Matriculas/listado'))->with('success', 'Estado actualizado correctamente');
+}
+
+public function search()
+{
+    $keyword = $this->request->getGet('keyword');
+    $cursoSeleccionado = $this->request->getGet('curso') ?? '';
+
+    $matriculaModel = new MatriculaModel();
+    $cursModel = new CursModel();
+    $alumneModel=new AlumneModel(); 
+
+    $curs = $cursModel->findAll();
+    $matriculas = $matriculaModel
+        ->orderBy('created_at', 'DESC')
+        ->paginate(10, 'default');
+
+    if ($keyword) {
+        $matriculaModel->groupStart()
+            ->like('Nom_alumne', $keyword)
+            ->groupEnd();
+    }
+
+    if (!empty($cursoSeleccionado)) {
+        $matriculaModel->where('id_curs', $cursoSeleccionado);
+    }
+       foreach ($matriculas as &$m) {
+        
+    $alumno = $alumneModel->find($m['id_alumne']);
+
+    if ($alumno) {
+        $m['Nom_alumne'] = $alumno['Nom_alumne'];
+    } else {
+        $m['Nom_alumne'] = 'Sin alumno';
+    }
+
+    $curso = $cursModel->find($m['id_curs']);
+
+    if ($curso) {
+        $m['Nom_curs'] = $curso['Nom_curs'];
+    } else {
+        $m['Nom_curs'] = 'Sin curso';
+    } 
+
+}
+
+    $data['matriculas'] = $matriculaModel->paginate(10);
+    $data['pager'] = $matriculaModel->pager;
+    $data['curs'] = $curs;
+    $data['cursoSeleccionado'] = $cursoSeleccionado;
+    $data['keyword'] = $keyword;
+
+    return view('privat/Expedientes/matriculas/matriculas_list', $data);
 }
 
 

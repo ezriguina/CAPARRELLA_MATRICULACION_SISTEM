@@ -115,12 +115,13 @@
         <div class="step-circle">3</div>
         <div class="step-label">Pago</div>
     </div>
-</div>
+</div> 
         <div class="card-body p-5">
             <h4 class="mb-4 text-primary">Dades de l'alumne/a</h4>
 
-            <form action="<?= base_url('matricula/datos_alumne') ?>" method="post">
-            <?= csrf_field();?>
+            <form action="<?= base_url('matricula/datos_alumne') ?>" method="post" enctype="multipart/form-data">
+            <?= csrf_field();?> 
+
             <?=  validation_list_errors() ?> 
             
                 <div class="accordion mb-4" id="accordionAlumno">
@@ -149,7 +150,7 @@
                         <input type="text" class="form-control form-control-lg" name="nom_alumne" value="<?= old('nom_alumne'); ?>">  
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label fw-semibold">DNI</label>
+                        <label class="form-label fw-semibold">DNI,NIE,PASSAPORTE</label>
                         <input type="text" class="form-control form-control-lg" name="dni" value="<?= old('dni'); ?>">
                     </div>
                 </div>
@@ -176,25 +177,39 @@
                     <i class="bi bi-card-image"></i> Documents DNI
                 </h6>
 
-                <div class="row text-center mb-3">
-                    <div class="col-md-6">
-                        <img src="<?= base_url('img/1.png') ?>" class="img-fluid rounded shadow mb-2" style="max-height:200px;">
-                        <p class="small text-muted">Frente</p>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="<?= base_url('img/2.png') ?>" class="img-fluid rounded shadow mb-2" style="max-height:200px;">
-                        <p class="small text-muted">Dorso</p>
-                    </div>
-                </div>
+                <div class="row g-4 mb-4">
 
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                        <input type="file" class="form-control form-control-lg" name="dni_front">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="file" class="form-control form-control-lg" name="dni_back">
-                    </div>
-                </div>
+    <div class="col-md-6 text-center">
+        <label class="form-label fw-bold">DNI (anvers)</label>
+
+        <div class="border rounded p-3 shadow-sm">
+            <img id="previewFront" src="<?= base_url('img/1.png') ?>" 
+                 class="img-fluid mb-2" style="max-height:200px; object-fit:cover;">
+
+            <input type="file" class="form-control" name="dni_f" accept="image/*" onchange="previewImage(event, 'previewFront')">
+
+            <small class="text-muted">
+                Formats permesos: JPG, PNG • Max 2MB
+            </small>
+        </div>
+    </div>
+
+    <div class="col-md-6 text-center">
+        <label class="form-label fw-bold">DNI (revers)</label>
+
+        <div class="border rounded p-3 shadow-sm">
+            <img id="previewBack" src="<?= base_url('img/2.png') ?>" 
+                 class="img-fluid mb-2" style="max-height:200px; object-fit:cover;">
+
+            <input type="file" class="form-control" name="dni_b" accept="image/*" onchange="previewImage(event, 'previewBack')">
+
+            <small class="text-muted">
+                Formats permesos: JPG, PNG • Max 2MB
+            </small>
+        </div>
+    </div>
+
+</div>
 
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-calendar"></i> Dades personals
