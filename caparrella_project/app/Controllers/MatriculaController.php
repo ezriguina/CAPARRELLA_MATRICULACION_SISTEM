@@ -96,18 +96,20 @@ class MatriculaController extends BaseController
      $correo = $this->request->getPost('email_alumne');
      $dni_front = $this->request->getFile('dni_front'); 
      $dni_back = $this->request->getFile('dni_back'); 
+     
      $dniFrontName = null;
-$dniBackName = null;
+     $dniBackName = null;
 
 if ($dni_front && $dni_front->isValid() && !$dni_front->hasMoved()) {
     $dniFrontName = $dni_front->getRandomName();
-    $dni_front->move('uploads/', $dniFrontName);
+    $dni_front->move(FCPATH.'uploads', $dniFrontName);
 }
 
 if ($dni_back && $dni_back->isValid() && !$dni_back->hasMoved()) {
     $dniBackName = $dni_back->getRandomName();
-    $dni_back->move('uploads/', $dniBackName);
+    $dni_back->move(FCPATH.'uploads', $dniBackName);
 }
+
 
  
 $tutor_tipo       =$this->request->getPost('tipo_tutor');   
