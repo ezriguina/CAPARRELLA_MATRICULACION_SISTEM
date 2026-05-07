@@ -11,6 +11,8 @@ use App\Models\ValidationLockModel;
 use App\Models\ExpedienteModel;
 use App\Models\EstructurasModel;
 use App\Libraries\IdObfuscator;
+use App\Models\BonifModel;
+use App\Models\ReduccModel;
 use App\Models\TandadaModel;
 use App\Models\TutorModel;
 use App\Models\UserModel;
@@ -367,15 +369,20 @@ public function Dashborad_view()
     $mensajeModel   = new MensajeModel();
     $TandadaModel   = new TandadaModel();
     $UserModel     = new UserModel() ;  
+    $bonifModel    =new BonifModel(); 
+    //$reduccModel   =new ReduccModel(); 
 
     
             $nom = $session->get('name') ; 
             $email = $session->get('email'); 
-            $role = $session->get('role'); 
+            $role = $session->get('role');  
+            $MatriculaValid = $matriculaModel->where('estado','1'); 
+
     $data = [
         'totalAlumnos'    => $AlumneModel->countAll(),
         'totalCursos'     => $CursModel->countAll(),
         'totalMatriculas' => $matriculaModel->countAll(),
+        'MatriculaV'      => $MatriculaValid->countAll(),
         'totalMensajes'   => $mensajeModel->countAll(),
         'totalTandadas'   => $TandadaModel->countAll(),
         'totalUsers'      => $UserModel->countAll(),
@@ -504,16 +511,18 @@ public function search()
     $matriculaModel = new MatriculaModel();
     $cursModel = new CursModel();
     $alumneModel=new AlumneModel(); 
+    
 
     $curs = $cursModel->findAll();
     $matriculas = $matriculaModel
         ->orderBy('created_at', 'DESC')
         ->paginate(10, 'default');
-
+    
     if ($keyword) {
         $matriculaModel->groupStart()
             ->like('Nom_alumne', $keyword)
-            ->groupEnd();
+            ->groupEnd(); 
+
     }
 
     if (!empty($cursoSeleccionado)) {

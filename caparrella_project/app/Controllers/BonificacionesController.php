@@ -17,8 +17,8 @@ class BonificacionesController extends BaseController
         $model = new BonifModel();
 
         $bonificaciones = $model
-            ->select('bonificaciones.*, cursos.Nom_curs')
-            ->join('cursos', 'cursos.id_curs = bonificaciones.id_curso')
+            ->select('bonificaciones.*, curs.Nom_curs')
+            ->join('curs', 'curs.id_curs = bonificaciones.id_curso')
             ->paginate(6);
 
         $data['bonificaciones'] = $bonificaciones;
@@ -63,7 +63,7 @@ class BonificacionesController extends BaseController
 
         $model->insert($data);
 
-        return redirect()->to('privat/Bonificaciones/B_list')
+        return redirect()->to('privat/Bonificaciones')
             ->with('success', 'Bonificación creada');
     }
 
@@ -106,7 +106,7 @@ class BonificacionesController extends BaseController
 
         $model->update($id, $data);
 
-        return redirect()->to('privat/Bonificaciones/B_list')
+        return redirect()->to('privat/Bonificaciones')
             ->with('success', 'Actualizada correctamente');
     }
 

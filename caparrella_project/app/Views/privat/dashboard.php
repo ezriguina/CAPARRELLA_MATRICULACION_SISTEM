@@ -141,7 +141,7 @@
 
                     <h2 class="fw-bold text-warning">
                     
-                    <?= esc($totalMatriculas) ?>
+                    <?= esc($MatriculaV) ?>
                     
                     </h2>
 
