@@ -141,6 +141,9 @@
                             <strong><?= esc($curs['codigo_curs']) ?></strong>
                         </li>
 
+                   
+                        
+
                         <li class="list-group-item d-flex justify-content-between">
                             <span>Total a pagar</span>
                             <strong class="text-success fs-5">

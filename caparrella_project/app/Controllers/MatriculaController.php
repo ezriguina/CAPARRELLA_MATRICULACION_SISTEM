@@ -207,8 +207,10 @@ return redirect()->to('matricula/datos_curs');
 
     public function m_curs_view(){
         $cursModel = new CursModel(); 
-        
+        $bonificacionModel=new BonifModel(); 
+     
         helper('form');
+        $data['bonif'] = $bonificacionModel->findAll(); 
         $data ['curso'] = $cursModel->findAll();
         return view('matricula/matricula2',$data);
     } 
@@ -216,13 +218,16 @@ return redirect()->to('matricula/datos_curs');
 
 public function m_curs_post(){
     $matriculaModel = new MatriculaModel(); 
+    $bonifModel = new BonifModel(); 
 
 $session = session();
 helper('form');
 $curso = $this->request->getPost('Nom_curs');
+$bonif = $this->request->getPost('bonif'); 
+
 $validation = [
 'Nom_curs' => 'required',
-
+'bonif'    => 'required'
 ];
 
 if(!$this->validate($validation)){
@@ -242,9 +247,11 @@ $data = [
 
 
 $curs = $Cursmodel->where('nom_curs',$curso)->first();
+$bonificacion = $bonifModel->where('nombre',$bonif)->first(); 
 
 $sessionData=[
-'id_curs' => $curs['id_curs']
+'id_curs' => $curs['id_curs'] ,
+//'id_bonif' => $bonificacion['id_bonificacion']
 ]; 
 
 $session ->set($sessionData); 
@@ -269,13 +276,15 @@ public function pago_view()
     
     $id_Alumne = session()->get('id_alumne');
     $id_Curs = session()->get('id_curs');
-    
+    //$id_bonificaion = session()->get('id_bonificacion'); 
+
     $alumne=$AlumneModel->find($id_Alumne);
     $curs=$Cursmodel ->find($id_Curs);
-
+    
     $data = [
         'alumne' => $alumne,
-        'curs' => $curs
+        'curs' => $curs,
+       // 'bonif'=> $id_bonificaion
     ];
 
     return view('matricula/matricula_pago', $data);
@@ -294,6 +303,7 @@ public function pago_post()
 
     $id_alumne = $session->get('id_alumne');
     $id_curs = $session->get('id_curs') ; 
+    $id_bonificacion = $session->get('id_bonificacion') ;
     $comp= $this->request->getFile('comprov_pago') ; 
 
     $validation=[
@@ -308,6 +318,7 @@ public function pago_post()
 
         'id_alumne' => $id_alumne,
         'id_curs'   => $id_curs,
+        'id_bonificacion' => $id_bonificacion,
         'estado'    => 'pendiente',
         'pagado'    => 0
 

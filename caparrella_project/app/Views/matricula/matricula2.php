@@ -106,7 +106,7 @@
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label">Tipo matrícula</label>
@@ -123,11 +123,12 @@
 
                 <div class="mb-3">
                     <label class="form-label">Seleccione bonificación</label>
-                    <select class="form-select" name="bonificacion">
-                        <option value="">Ninguna</option>
-                        <option value="taquilla">Taquilla</option>
-                        <option value="bus">Bus Escolar</option>
-                    </select>
+                    <select class="form-select" name="bonif">
+                            <option value="">Seleccione</option>
+                            <?php foreach($bonif as $b): ?>
+                            <option value="<?= $b['nombre']; ?> "> <?= $b['nombre']; ?> </option>
+                            <?php endforeach; ?>
+                        </select>
                 </div>
 
                 <h5 class="text-secondary mb-3">Reducciones</h5>
