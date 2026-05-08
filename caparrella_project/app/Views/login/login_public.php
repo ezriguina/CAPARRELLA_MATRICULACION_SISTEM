@@ -278,7 +278,7 @@
 </div>
 
                 <div class="footer-note">
-                    <i class="bi bi-shield-lock-fill me-1"></i> Plataforma validada · 
+                    <i ></i>
                     © <?= date('Y') ?> Instituto Caparrella · Todos los derechos reservados
                 </div>
             </div>
@@ -286,7 +286,6 @@
     </div>
 </div>
 
-<!-- Bootstrap JS (opcional, solo para interacciones visuales sin afectar backend) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
