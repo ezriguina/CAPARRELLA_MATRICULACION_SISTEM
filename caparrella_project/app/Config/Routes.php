@@ -130,6 +130,9 @@ $routes->get('privat/Matriculas/Manual/crear','MatriculaController::crear_matric
 $routes->post('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula_post'); 
 $routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula/$1'); 
 $routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula_post/$1'); 
+$routes->post('privat/Matriculas/eliminar/(:segment)','MatriculaController::matricula_delete/$1') ;
+$routes->post('privat/Matriculas/restaurar/(:segment)', 'MatriculaController::matricula_recup/$1'); 
+$routes->get('privat/Matriculas/papelera', 'MatriculaController::matricula_papelera');
 //Buscador 
 $routes->get('privat/Matriculas/searchMatricula','MatriculaController::search');
 

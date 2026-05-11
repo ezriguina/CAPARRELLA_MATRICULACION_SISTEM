@@ -73,9 +73,11 @@ class MatriculaController extends BaseController
 
     public function m_alumne_view(){
     helper('form') ;
-    
-    return view('matricula/matricula1');
+    $TandadaModel=new TandadaModel();
+    $data['Tand'] = $TandadaModel->where('estado','1')->first() ; 
 
+    return view('matricula/matricula1',$data);
+       
     }
 
     public function m_alumne_post(){
@@ -201,7 +203,7 @@ $AlumneModel->insert($data);
 
 return redirect()->to('matricula/datos_curs');
   
-
+     
 
     }
 
@@ -287,6 +289,7 @@ public function pago_view()
        // 'bonif'=> $id_bonificaion
     ];
 
+
     return view('matricula/matricula_pago', $data);
 }
 
@@ -294,8 +297,9 @@ public function pago_view()
 public function pago_post()
 {   helper('form'); 
     $session = session();
-
+    
     $matriculaModel = new MatriculaModel();
+    $tandadaModel = new TandadaModel() ; 
 
     if (!$session->has('id_alumne')) {
         return redirect()->to('login');
@@ -303,25 +307,23 @@ public function pago_post()
 
     $id_alumne = $session->get('id_alumne');
     $id_curs = $session->get('id_curs') ; 
-    $id_bonificacion = $session->get('id_bonificacion') ;
-    $comp= $this->request->getFile('comprov_pago') ; 
+    $id_bonificacion = $session->get('id_bonificacion') ; 
 
-    $validation=[
-    'comprovante_pago' => $comp
-    ]; 
+    $tandada = $tandadaModel->where('estado', '1')->first();
+    
+    if (!$tandada) {
+        return redirect()->back()->with('error', 'No hay tandada activa.');
+    }
 
-    /*if(!$this->validate($validation)){
-        return redirect()->back()->with('error',$this->validator) ;
-    }*/
+    $comp = $this->request->getFile('comprov_pago');
 
     $data = [
-
-        'id_alumne' => $id_alumne,
-        'id_curs'   => $id_curs,
-        'id_bonificacion' => $id_bonificacion,
-        'estado'    => 'pendiente',
-        'pagado'    => 0
-
+        'id_alumne'        => $id_alumne,
+        'id_curs'          => $id_curs,
+        'id_bonificacion'  => $id_bonificacion,
+        'id_tandada'       => $tandada['id_tandada'],
+        'estado'           => 'pendiente',
+        'pagado'           => 0
     ];
     
     $matriculaModel->insert($data);
@@ -420,7 +422,7 @@ public function Matricula_list(){
 
     $alumne=$alumneModel->findAll(); 
     $curs = $cursModel->findAll();  
-     $cursoSeleccionado = $this->request->getGet('id_curs') ?? '';
+    $cursoSeleccionado = $this->request->getGet('id_curs') ?? '';
     $busquedaAlumno = $this->request->getGet('alumno') ?? '';
 
     if (!empty($cursoSeleccionado)) {
@@ -434,20 +436,19 @@ public function Matricula_list(){
     foreach ($matriculas as &$m) {
 
     $alumno = $alumneModel->find($m['id_alumne']);
-
+    
     if ($alumno) {
         $m['Nom_alumne'] = $alumno['Nom_alumne'];
-    } else {
-        $m['Nom_alumne'] = 'Sin alumno';
-    }
+    } 
 
     $curso = $cursModel->find($m['id_curs']);
 
     if ($curso) {
         $m['Nom_curs'] = $curso['Nom_curs'];
-    } else {
-        $m['Nom_curs'] = 'Sin curso';
     } 
+      $Tanda = $TandadaModel->find($m['id_tandada']);
+
+   $m['Nom_Tanda'] = $Tanda['nom_tandada'] ?? 'Null';
 
 }
     
@@ -567,7 +568,46 @@ public function search()
 
     return view('privat/Expedientes/matriculas/matriculas_list', $data);
 }
+public function matricula_delete($id)
+{
+    $matriculaModel = new MatriculaModel();
 
+    $matricula = $matriculaModel->find($id);
+
+    if (!$matricula) {
+        return redirect()->back()->with('error', 'La matrícula no existe.');
+    }
+
+    $matriculaModel->delete($id);
+
+    return redirect()->to('privat/Matriculas/listado')->with('success', 'Matrícula eliminada correctamente.');
+}
+
+public function matricula_recup($id)
+{
+    $matriculaModel = new MatriculaModel();
+
+    $matricula = $matriculaModel->withDeleted()->find($id);
+
+    if (!$matricula) {
+        return redirect()->to('privat/Matriculas/listado')->with('error', 'La matrícula no existe.');
+    }
+
+    $matriculaModel->update($id, ['deleted_at' => null]);
+
+    return redirect()->to('privat/Matriculas/listado')->with('success', 'Matrícula restaurada correctamente.');
+}
+
+public function matricula_papelera()
+{
+    $matriculaModel = new MatriculaModel();
+
+    $data['matriculas'] = $matriculaModel
+        ->onlyDeleted()
+        ->findAll();
+
+    return view('privat/Expedientes/matriculas/papelera', $data);
+}
 
 
 

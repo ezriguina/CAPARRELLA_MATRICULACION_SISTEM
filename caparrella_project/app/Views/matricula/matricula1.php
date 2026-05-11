@@ -115,7 +115,13 @@
         <div class="step-circle">3</div>
         <div class="step-label">Pago</div>
     </div>
-</div> 
+</div>  
+      <div class="tandada-actual">
+  <span class="label">Tandada actual:</span>
+  <strong class="value">
+    <?= esc($Tand['nom_tandada']); ?>
+  </strong>
+</div>
         <div class="card-body p-5">
             <h4 class="mb-4 text-primary">Dades de l'alumne/a</h4>
 
@@ -137,7 +143,7 @@
         <div id="collapseAlumno" class="accordion-collapse collapse show">
 
             <div class="accordion-body">
-
+                 
                 <h6 class="text-primary mb-3">
                     <i class="bi bi-person"></i> Informació bàsica
                 </h6>
