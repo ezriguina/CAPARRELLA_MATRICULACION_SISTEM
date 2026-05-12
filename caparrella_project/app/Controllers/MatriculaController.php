@@ -294,6 +294,7 @@ public function pago_view()
 }
 
 
+
 public function pago_post()
 {   helper('form'); 
     $session = session();
@@ -416,7 +417,7 @@ public function Matricula_list(){
     $alumneModel = new AlumneModel() ; 
     $cursModel = new CursModel() ; 
     $TandadaModel = new TandadaModel(); 
-   
+    
 
     $matriculas=$matriculaModel->paginate(10,'default') ; 
 
@@ -522,52 +523,45 @@ public function search()
 
     $matriculaModel = new MatriculaModel();
     $cursModel = new CursModel();
-    $alumneModel=new AlumneModel(); 
-    
+    $TandadaModel = new TandadaModel(); 
 
-    $curs = $cursModel->findAll();
-    $matriculas = $matriculaModel
-        ->orderBy('created_at', 'DESC')
-        ->paginate(10, 'default');
-    
+    $cursos = $cursModel->findAll();
+
+    $builder = $matriculaModel
+        ->select('
+            matricula.*,
+            alumne.Nom_alumne,
+            alumne.Cognom_alumne,
+            curs.Nom_curs
+        ')
+        ->join('alumne', 'alumne.id_alumne = matricula.id_alumne')
+        ->join('curs', 'curs.id_curs = matricula.id_curs')
+        ->orderBy('matricula.created_at', 'DESC');
+
     if ($keyword) {
-        $matriculaModel->groupStart()
-            ->like('Nom_alumne', $keyword)
-            ->groupEnd(); 
-
+        $builder->groupStart()
+            ->like('alumne.Nom_alumne', $keyword)
+            ->orLike('alumne.Cognom_alumne', $keyword)
+            ->groupEnd();
     }
 
     if (!empty($cursoSeleccionado)) {
-        $matriculaModel->where('id_curs', $cursoSeleccionado);
-    }
-       foreach ($matriculas as &$m) {
-        
-    $alumno = $alumneModel->find($m['id_alumne']);
-
-    if ($alumno) {
-        $m['Nom_alumne'] = $alumno['Nom_alumne'];
-    } else {
-        $m['Nom_alumne'] = 'Sin alumno';
+        $builder->where('matricula.id_curs', $cursoSeleccionado);
     }
 
-    $curso = $cursModel->find($m['id_curs']);
+    $matriculas = $builder->paginate(10);
 
-    if ($curso) {
-        $m['Nom_curs'] = $curso['Nom_curs'];
-    } else {
-        $m['Nom_curs'] = 'Sin curso';
-    } 
-
-}
-
-    $data['matriculas'] = $matriculaModel->paginate(10);
-    $data['pager'] = $matriculaModel->pager;
-    $data['curs'] = $curs;
-    $data['cursoSeleccionado'] = $cursoSeleccionado;
-    $data['keyword'] = $keyword;
+    $data = [
+        'matriculas' => $matriculas,
+        'pager' => $matriculaModel->pager,
+        'curs' => $cursos,
+        'cursoSeleccionado' => $cursoSeleccionado,
+        'keyword' => $keyword
+    ];
 
     return view('privat/Expedientes/matriculas/matriculas_list', $data);
 }
+
 public function matricula_delete($id)
 {
     $matriculaModel = new MatriculaModel();
@@ -609,11 +603,244 @@ public function matricula_papelera()
     return view('privat/Expedientes/matriculas/papelera', $data);
 }
 
+ public function crear()
+    {
+        helper('form');
 
+        $cursModel = new CursModel();
+        $bonifModel = new BonifModel();
+        
+        $data = [
+            'cursos' => $cursModel->findAll(),
+            'bonificaciones' => $bonifModel->findAll()
+        ];
+
+        return view('privat/Expedientes/matriculas/Matricula_Manual', $data);
+    }
+    
+
+    public function crear_post()
+    {
+        helper('form');
+
+        $AlumneModel = new AlumneModel();
+        $TutorModel = new TutorModel();
+        $MatriculaModel = new MatriculaModel();
+        $TandadaModel = new TandadaModel();
+
+        $validation = [
+            'nom_alumne' => 'required|min_length[3]',
+            'dni' => 'required',
+            'email_alumne' => 'required|valid_email',
+            'id_curs' => 'required'
+        ];
+
+        if (!$this->validate($validation)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator);
+        }
+
+        $dni = $this->request->getPost('dni');
+
+        $alumnoExistente = $AlumneModel->where('Dni_alumne', $dni)->first();
+
+        if ($alumnoExistente) {
+            $id_alumno = $alumnoExistente['id_alumne'];
+        } else {
+
+            // subir archivos
+            $dni_front = $this->request->getFile('dni_f');
+            $dni_back  = $this->request->getFile('dni_b');
+
+            $dniFrontName = null;
+            $dniBackName = null;
+
+            if ($dni_front && $dni_front->isValid()) {
+                $dniFrontName = $dni_front->getRandomName();
+                $dni_front->move(FCPATH . 'uploads/', $dniFrontName);
+            }
+
+            if ($dni_back && $dni_back->isValid()) {
+                $dniBackName = $dni_back->getRandomName();
+                $dni_back->move(FCPATH . 'uploads/', $dniBackName);
+            }
+
+            $alumnoData = [
+                'Nom_alumne' => $this->request->getPost('nom_alumne'),
+                'Cognom_alumne' => $this->request->getPost('cognom_alumne'),
+                'Dni_alumne' => $dni,
+                'correo_alumne' => $this->request->getPost('email_alumne'),
+                'tsi' => $this->request->getPost('TSI'),
+                'poblacio' => $this->request->getPost('Poblacio'),
+                'data_naixement' => $this->request->getPost('data_nacimiento'),
+                'domicili' => $this->request->getPost('domicili'),
+                'tlf_familiar' => $this->request->getPost('tlf_familiar'),
+                'municipi' => $this->request->getPost('municipi'),
+                'codi_postal' => $this->request->getPost('codi_postal'),
+                'tlf_alumne' => $this->request->getPost('tlf_alumne'),
+                'foto_documento_frente' => $dniFrontName,
+                'foto_documento_reverso' => $dniBackName
+            ];
+
+            $id_alumno = $AlumneModel->insert($alumnoData);
+        }
+
+        $id_tutor = null;
+
+        if ($this->request->getPost('tutor_nombre')) {
+
+            $tutorData = [
+                'tipo_tutor' => $this->request->getPost('tipo_tutor'),
+                'nombre' => $this->request->getPost('tutor_nombre'),
+                'apellidos' => $this->request->getPost('tutor_apellidos'),
+                'dni' => $this->request->getPost('tutor_dni'),
+                'telefono' => $this->request->getPost('tutor_telefono'),
+                'email' => $this->request->getPost('tutor_email'),
+                'alumno_id' => $id_alumno
+            ];
+
+            $id_tutor = $TutorModel->insert($tutorData);
+        }
+
+        $tandada = $TandadaModel->where('estado', '1')->first();
+
+        if (!$tandada) {
+            return redirect()->back()->with('error', 'No hay tandada activa');
+        }
+
+        $existe = $MatriculaModel
+            ->where('id_alumne', $id_alumno)
+            ->where('id_curs', $this->request->getPost('id_curs'))
+            ->first();
+
+        if ($existe) {
+            return redirect()->back()->with('error', 'Ya existe matrícula para este alumno en este curso');
+        }
+
+        $comp = $this->request->getFile('comprov_pago');
+        $compName = null;
+
+        if ($comp && $comp->isValid()) {
+            $compName = $comp->getRandomName();
+            $comp->move(FCPATH . 'uploads/', $compName);
+        }
+
+        $matriculaData = [
+            'id_alumne' => $id_alumno,
+            'id_curs' => $this->request->getPost('id_curs'),
+            'id_bonificacion' => $this->request->getPost('id_bonificacion'),
+            'id_tandada' => $tandada['id_tandada'],
+            'estado' => $this->request->getPost('estado'),
+            'pagado' => $this->request->getPost('pagado'),
+            'tipo_matricula' => $this->request->getPost('tipo_matricula'),
+            'reduccion' => $this->request->getPost('reduccion'),
+            'comprobante_pago' => $compName
+        ];
+
+        $MatriculaModel->insert($matriculaData);
+
+        return redirect()->to('privat/Matriculas/listado')->with('success', 'Matrícula creada correctamente');
+    }
+
+
+    public function edit_matricula($id)
+{
+    helper('form');
+
+    $MatriculaModel = new MatriculaModel();
+    $AlumneModel = new AlumneModel();
+    $TutorModel = new TutorModel();
+    $CursModel = new CursModel();
+    $BonifModel = new BonifModel();
+
+    $matricula = $MatriculaModel->find($id);
+
+    if (!$matricula) {
+        return redirect()->back()->withInput()->with('error','Mattricula no valida '); 
+
+    }
+
+    $alumno = $AlumneModel->find($matricula['id_alumne']);
+    //$tutor = $TutorModel->where('alumno_id', $matricula['id_alumne'])->first();
+
+    $data = [
+        'matricula' => $matricula,
+        'alumno' => $alumno,
+        //'tutor' => $tutor,
+        'cursos' => $CursModel->findAll(),
+        'bonificaciones' => $BonifModel->findAll()
+    ];
+
+    return view('privat/Expedientes/matriculas/Matricula_edit', $data);
+}
+public function edit_matricula_post($id)
+{
+    helper('form');
+
+    $MatriculaModel = new MatriculaModel();
+    $AlumneModel = new AlumneModel();
+    $TutorModel = new TutorModel();
+
+    $matricula = $MatriculaModel->find($id);
+
+    if (!$matricula) {
+        return redirect()->back()->with('error', 'Matrícula no encontrada');
+    }
+
+    $id_alumno = $matricula['id_alumne'];
+
+    $alumnoData = [
+        'Nom_alumne' => $this->request->getPost('nom_alumne'),
+        'Cognom_alumne' => $this->request->getPost('cognom_alumne'),
+        'Dni_alumne' => $this->request->getPost('dni'),
+        'correo_alumne' => $this->request->getPost('email_alumne'),
+        'tsi' => $this->request->getPost('TSI'),
+        'poblacio' => $this->request->getPost('Poblacio'),
+        'data_naixement' => $this->request->getPost('data_nacimiento'),
+        'domicili' => $this->request->getPost('domicili'),
+        'tlf_familiar' => $this->request->getPost('tlf_familiar'),
+        'municipi' => $this->request->getPost('municipi'),
+        'codi_postal' => $this->request->getPost('codi_postal'),
+        'tlf_alumne' => $this->request->getPost('tlf_alumne'),
+    ];
+
+    $AlumneModel->update($id_alumno, $alumnoData);
+
+   /* $tutor = $TutorModel->where('alumno_id', $id_alumno)->first();
+
+    $tutorData = [
+        'tipo_tutor' => $this->request->getPost('tipo_tutor'),
+        'nombre' => $this->request->getPost('tutor_nombre'),
+        'apellidos' => $this->request->getPost('tutor_apellidos'),
+        'dni' => $this->request->getPost('tutor_dni'),
+        'telefono' => $this->request->getPost('tutor_telefono'),
+        'email' => $this->request->getPost('tutor_email'),
+    ];
+
+    if ($tutor) {
+        $TutorModel->update($tutor['id'], $tutorData);
+    } else {
+        $tutorData['alumno_id'] = $id_alumno;
+        $TutorModel->insert($tutorData);
+    }*/
+
+    $matriculaData = [
+        'id_curs' => $this->request->getPost('id_curs'),
+        'id_bonificacion' => $this->request->getPost('id_bonificacion'),
+        'estado' => $this->request->getPost('estado'),
+        'pagado' => $this->request->getPost('pagado'),
+        'tipo_matricula' => $this->request->getPost('tipo_matricula'),
+        'reduccion' => $this->request->getPost('reduccion'),
+    ];
+
+    $MatriculaModel->update($id, $matriculaData);
+    
+    return redirect()->to('privat/Matriculas/listado')->with('success', 'Matrícula actualizada');
+}
 
 
 }
 
 
+   
 //-----------------------------------------------------------------------------
 

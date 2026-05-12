@@ -12,7 +12,7 @@ class MatriculaModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = true;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_alumne','id_curs','id_tandada','estado','pagado','created_at','updated_at','deleted_at'];
+    protected $allowedFields    = ['id_alumne','id_curs','id_tandada','id_bonificacion','tipo_matricula','estado','pagado','created_at','updated_at','deleted_at'];
     
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

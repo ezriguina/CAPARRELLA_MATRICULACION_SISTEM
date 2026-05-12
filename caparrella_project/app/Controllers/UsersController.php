@@ -173,7 +173,9 @@ class UsersController extends BaseController
     $user_actual = $session->get('id') ;
 
     $user = $UsersModel->where('id',$id)->first() ;
-    
+    if(!$user || $id==$user_actual){
+        return redirect()->back()->withInput()->with('error','no puedes borrar tu usuario') ;
+    }
     $UsersModel->delete($id) ;
      
      

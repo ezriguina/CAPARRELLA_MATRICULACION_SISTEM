@@ -128,11 +128,16 @@ $routes->post('privat/Users/eliminar/(:segment)','UsersController::U_delete/$1',
 $routes->get('privat/Matriculas/listado','MatriculaController::Matricula_list') ; 
 $routes->get('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula'); 
 $routes->post('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula_post'); 
-$routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula/$1'); 
-$routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::crear_matricula_post/$1'); 
+$routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::edit_matricula/$1'); 
+$routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::edit_matricula_post/$1'); 
 $routes->post('privat/Matriculas/eliminar/(:segment)','MatriculaController::matricula_delete/$1') ;
 $routes->post('privat/Matriculas/restaurar/(:segment)', 'MatriculaController::matricula_recup/$1'); 
 $routes->get('privat/Matriculas/papelera', 'MatriculaController::matricula_papelera');
+
+ $routes->get('admin/matricula/create', 'MatriculaController::crear');
+$routes->post('admin/matricula/create', 'MatriculaController::crear_post');
+  $routes->get('matricula/edit/(:num)', 'AdminMatriculaController::edit/$1');
+    $routes->post('matricula/update/(:num)', 'AdminMatriculaController::update/$1');
 //Buscador 
 $routes->get('privat/Matriculas/searchMatricula','MatriculaController::search');
 

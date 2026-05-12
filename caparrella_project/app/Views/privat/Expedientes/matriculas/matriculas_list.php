@@ -28,10 +28,10 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h5 class="fw-semibold mb-0">Matrículas</h5>
+            <h5 class="fw-semibold mb-0">Matriculas</h5>
             <small class="text-muted">Gestión de matrículas del sistema</small>
         </div>
-        <a href="<?= base_url('privat/Matriculas/create') ?>" class="btn btn-primary btn-sm">
+        <a href="<?= base_url('admin/matricula/create') ?>" class="btn btn-primary btn-sm">
             <i class="fa fa-plus me-1"></i> Nueva matrícula
         </a>
     </div>
@@ -141,24 +141,25 @@
                                        class="btn btn-outline-success btn-sm">
                                         <i class="fa fa-check me-1"></i> Validar
                                     </a>
-
+                             
                                     <button type="button"
                                         onclick="document.getElementById('modal-<?= esc($m['id_matricula']) ?>').style.display='flex'"
                                         class="btn btn-outline-secondary btn-sm">
-                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-eye">Ver</i>
                                     </button>
-
-                                    <a href="<?= base_url('privat/Matriculas/edit/' . esc($m['id_matricula'])) ?>"
+                                     
+                                    <a href="<?= base_url('privat/Matriculas/Manual/edit/' . esc($m['id_matricula'])) ?>"
                                        class="btn btn-outline-warning btn-sm">
-                                        <i class="fa fa-pen"></i>
+                                        <i class="fa fa-pen">Editar</i>
                                     </a>
+                                    
 
                                     <form action="<?= base_url('privat/Matriculas/eliminar/' . esc($m['id_matricula'])) ?>"
                                           method="post" class="d-inline">
                                         <?= csrf_field() ?>
                                         <button type="submit" class="btn btn-outline-danger btn-sm"
-                                            onclick="return confirm('¿Eliminar matrícula?');">
-                                            <i class="fa fa-trash"></i>
+                                            onclick="return confirm('¿Eliminar matricula?');">
+                                            <i class="fa fa-trash">Borrar</i>
                                         </button>
                                     </form>
 

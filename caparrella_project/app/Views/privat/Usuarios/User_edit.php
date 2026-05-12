@@ -32,7 +32,6 @@
         <div class="mb-3">
             <label class="form-label">Nueva contraseña</label>
             <input type="password" name="password" class="form-control">
-            <small class="text-muted">Déjalo vacío si no quieres cambiarla</small>
         </div>
 
         <div class="mb-3">
