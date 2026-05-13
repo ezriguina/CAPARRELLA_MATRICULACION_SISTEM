@@ -1,0 +1,182 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+
+$routes->get('/', 'Home::index');
+//matrciula 
+/*
+$routes->get('matricula','MatriculaController::index');// bug acces 
+$routes->post('matricula','MatriculaController::index_post');
+*/$routes->get('/', 'Home::index');
+
+
+
+$routes->group('public', function($routes){
+
+    $routes->get('login','LoginController::log');
+    $routes->post('login','LoginController::log_post');
+    
+    $routes->get('login_code','LoginController::login_code');
+    $routes->post('login_code','LoginController::login_code_post');
+    $routes->get('error_pre','loginController::login_code_error'); 
+    
+});
+
+$routes->group('matricula', function($routes){
+
+    $routes->get('/', 'MatriculaController::matricula_view');
+    $routes->post('/', 'MatriculaController::matricula_post');
+
+    $routes->get('datos_alumne','MatriculaController::m_alumne_view');
+    $routes->post('datos_alumne','MatriculaController::m_alumne_post');
+
+    $routes->get('datos_curs','MatriculaController::m_curs_view');
+    $routes->post('datos_curs','MatriculaController::m_curs_post');
+
+    $routes->get('pago','MatriculaController::pago_view');
+    $routes->post('pago','MatriculaController::pago_post');
+     
+    $routes->get('pago/pdf','MatriculaController::generar_pdf');
+
+});
+//------------------------------------------------------------------
+
+  
+// Endpoint para demostración de selects encadenados
+
+$routes->get('privat/education','MatriculaController::education_dropdowns'); // alias bajo layout privat
+// APIs JSON
+$routes->get('matricula/estructuras','MatriculaController::estructuras');
+$routes->get('matricula/asignaturas','MatriculaController::asignaturas');
+$routes->get('matricula/asignaturas/all','MatriculaController::getAllAsignaturas');
+$routes->get('matricula/optativas','MatriculaController::optativas');
+$routes->get('matricula/optativas/all','MatriculaController::getAllOptativas');
+$routes->get('matricula/buscar','MatriculaController::buscar');
+$routes->post('matricula/estructura/save','MatriculaController::saveEstructura');
+$routes->post('matricula/estructura/delete/(:num)','MatriculaController::deleteEstructura/$1');
+$routes->post('matricula/asignatura/save','MatriculaController::saveAsignatura');
+$routes->post('matricula/asignatura/delete/(:num)','MatriculaController::deleteAsignatura/$1');
+$routes->post('matricula/optativa/save','MatriculaController::saveOptativa');
+$routes->post('matricula/optativa/delete/(:num)','MatriculaController::deleteOptativa/$1');
+$routes->post('matricula/nivel/save','MatriculaController::saveNivel');
+
+// Rutas bajo "privat" para layout persistente
+$routes->get('privat/expedientes', 'MatriculaController::expedientes_view');
+$routes->get('privat/validados', 'MatriculaController::validados_view');
+
+$routes->post('privat/validados/(:segment)', 'MatriculaController::validados_view_2/$1');
+
+
+$routes->get('privat/validar/(:segment)', 'MatriculaController::validar_view/$1');
+$routes->post('privat/validar/(:segment)/aprobar', 'MatriculaController::aprobarAlumno/$1');
+$routes->post('privat/validar/(:segment)/anular', 'MatriculaController::anularAlumno/$1');
+
+// API endpoints
+$routes->get('api/validation-locks', 'MatriculaController::getValidationLocks');
+$routes->post('api/unlock-student/(:segment)', 'MatriculaController::unlockStudent/$1');
+
+// CRUD Mensajes
+$routes->post('api/mensajes', 'MensajeController::create');
+$routes->put('api/mensajes/(:num)', 'MensajeController::update/$1');
+$routes->delete('api/mensajes/(:num)', 'MensajeController::delete/$1');
+
+
+$routes->get('privat/historial', 'MatriculaController::historial_view');
+$routes->get('privat/mensatges', 'MatriculaController::mensatges_view');
+$routes->get('matricula/datos_alumne','MatriculaController::m_alumne_view');
+$routes->post('matricula/datos_alumne','MatriculaController::m_alumne_post');
+$routes->get('matricula/datos_pagament','MatriculaController::m_pagament_view');
+$routes->post('matricula/datos_pagament','MatriculaController::m_pagament_post'); 
+//---------------------------------------------------------------------------------------------------------
+//crud Cursos  
+
+$routes->get('privat/cursos', 'CursController::index');
+$routes->get('privat/cursos/create', 'CursController::create');
+$routes->post('privat/cursos/store', 'CursController::store');
+
+$routes->get('privat/cursos/edit/(:num)', 'CursController::edit/$1');
+$routes->post('privat/cursos/update/(:num)', 'CursController::update/$1');
+
+$routes->get('privat/cursos/delete/(:num)', 'CursController::delete/$1');
+
+//Tandada y Dash  
+
+
+$routes->get('privat/Dashboard/Instiut-Caparrella','MatriculaController::Dashborad_view',['filter' => 'auth']);
+$routes->get('privat/Tandada','TandadaController::Tanda_view',['filter' => 'auth']); 
+$routes->get('privat/Tandada/create','TandadaController::T_create',['filter' => 'auth']); 
+$routes->post('privat/Tandada/create','TandadaController::T_post',['filter' => 'auth']); 
+
+$routes->get('privat/Tandada/edit/(:segment)','TandadaController::T_edit/$1',['filter' => 'auth']); 
+$routes->post('privat/Tandada/edit/(:segment)','TandadaController::T_edit_post/$1',['filter' => 'auth']); 
+$routes->post('privat/tandada/eliminar/(:segment)','TandadaController::T_delete/$1',['filter' => 'auth']);
+
+//GESTION USERS 
+
+$routes->get('privat/Users/list','UsersController::user_list') ; 
+$routes->get('privat/Users/create','UsersController::U_create',['filter' => 'auth']); 
+$routes->post('privat/Users/create','UsersController::U_post',['filter' => 'auth']); 
+
+$routes->get('privat/Users/edit/(:segment)','UsersController::U_edit/$1',['filter' => 'auth']); 
+$routes->post('privat/Users/edit/(:segment)','UsersController::U_edit_post/$1',['filter' => 'auth']); 
+$routes->post('privat/Users/eliminar/(:segment)','UsersController::U_delete/$1',['filter' => 'auth']);
+//matriculas 
+$routes->get('privat/Matriculas/listado','MatriculaController::Matricula_list') ; 
+$routes->get('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula'); 
+$routes->post('privat/Matriculas/Manual/crear','MatriculaController::crear_matricula_post'); 
+$routes->get('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::edit_matricula/$1'); 
+$routes->post('privat/Matriculas/Manual/edit/(:segment)','MatriculaController::edit_matricula_post/$1'); 
+$routes->post('privat/Matriculas/eliminar/(:segment)','MatriculaController::matricula_delete/$1') ;
+$routes->post('privat/Matriculas/restaurar/(:segment)', 'MatriculaController::matricula_recup/$1'); 
+$routes->get('privat/Matriculas/papelera', 'MatriculaController::matricula_papelera');
+
+ $routes->get('admin/matricula/create', 'MatriculaController::crear');
+$routes->post('admin/matricula/create', 'MatriculaController::crear_post');
+  $routes->get('matricula/edit/(:num)', 'AdminMatriculaController::edit/$1');
+    $routes->post('matricula/update/(:num)', 'AdminMatriculaController::update/$1');
+//Buscador 
+$routes->get('privat/Matriculas/searchMatricula','MatriculaController::search');
+
+
+//validar Alumnos 
+$routes->get('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar/$1') ; 
+$routes->post('privat/Matriculas/matricula/validar/(:segment)','MatriculaController::Matricula_validar_post/$1') ; 
+//
+// BONIFICACIONES
+$routes->get('privat/Bonificaciones', 'BonificacionesController::bonificaciones_view');
+
+$routes->get('privat/Bonificaciones/create', 'BonificacionesController::B_create');
+$routes->post('privat/Bonificaciones/post', 'BonificacionesController::B_post');
+
+$routes->get('privat/Bonificaciones/edit/(:num)', 'BonificacionesController::B_edit/$1');
+$routes->post('privat/Bonificaciones/update/(:num)', 'BonificacionesController::B_edit_post/$1');
+
+$routes->get('privat/Bonificaciones/delete/(:num)', 'BonificacionesController::B_delete/$1');
+
+$routes->get('privat/Bonificaciones/view/(:num)', 'BonificacionesController::B_view/$1');
+
+// REDUCCIONES
+$routes->get('privat/Reducciones', 'ReduccionesController::reducciones_view');
+
+$routes->get('privat/Reducciones/create', 'ReduccionesController::R_create');
+$routes->post('privat/Reducciones/post', 'ReduccionesController::R_post');
+
+$routes->get('privat/Reducciones/edit/(:num)', 'ReduccionesController::R_edit/$1');
+$routes->post('privat/Reducciones/update/(:num)', 'ReduccionesController::R_edit_post/$1');
+
+$routes->get('privat/Reducciones/delete/(:num)', 'ReduccionesController::R_delete/$1');
+
+$routes->get('privat/Reducciones/view/(:num)', 'ReduccionesController::R_view/$1');
+
+//Auth  
+         
+$routes->get('Admin/Auth/Login','AuthController::login'); 
+$routes->post('Admin/Auth/Login','AuthController::login_post'); 
+$routes->get('Admin/Auth/logout','AuthController::logout',['filter' => 'auth']); 
+
+
+
