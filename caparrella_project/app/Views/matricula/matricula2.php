@@ -54,7 +54,7 @@
 
 <body class="bg-light">
 
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="<?= base_url('img/logo-removebg-preview.png') ?>" 
